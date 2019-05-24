@@ -69,7 +69,7 @@
     
 # Copy Config File
 - name: Copy Wordpress config file
-  file:
+  copy:
     src: /var/www/html/wp-config-sample.php
     dest: /var/www/html/wp-config.php
     
