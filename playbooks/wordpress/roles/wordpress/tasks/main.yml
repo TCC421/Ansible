@@ -66,3 +66,9 @@
     group: apache
     recurse: yes
     state: directory
+    
+# Copy Config File
+- name: Copy Wordpress config file
+  file:
+    src: /var/www/html/wp-config-sample.php
+    dest: /var/www/html/wp-config.php
