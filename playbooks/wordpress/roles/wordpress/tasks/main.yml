@@ -72,6 +72,7 @@
   copy:
     src: /var/www/html/wp-config-sample.php
     dest: /var/www/html/wp-config.php
+    remote_src: yes
     
 # Wordpress Configuration #1
 - name: Configure /var/www/html/wp-config.php
