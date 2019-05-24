@@ -1,0 +1,9 @@
+# Playbook to install graylog 3.0 in CentOS7
+
+- hosts: all
+  roles:
+    - common
+    - java
+    - mongodb
+    - elasticsearch
+    - graylog

@@ -1,0 +1,45 @@
+# Install Jenkins
+- name: install jenkins
+  hosts: all
+  tasks:
+  
+  # Install pre-reqs
+    - name: install prereqs
+      yum:
+        state: present
+        name:
+          - java-1.8.0-openjdk-devel
+  
+  # Import repository
+    - name: Add Jenkins repo
+      yum_repository:
+        name: jenkins
+        description: jenkins repo
+        baseurl: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+        gpgkey: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+        
+  # Install Jenkins
+    - name: install jenkins
+      yum:
+        state: present
+        name:
+          - jenkins
+  
+  # Open firewall
+    - name: open firewall
+      firewalld:
+        port: 8080/tcp
+        permanent: yes
+        state: enabled
+        
+  # Enable Jenkins
+    - name: enable jenkins
+      service:
+        name: jenkins
+        enabled: yes
+        
+  # Start Jenkins
+    - name: start jenkins
+      service:
+        name: jenkins
+        state: started

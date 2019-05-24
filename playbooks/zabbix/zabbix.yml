@@ -1,0 +1,197 @@
+# Install Zabbix
+- name: install zabbix
+  hosts: all
+  vars:
+    password: zabbix
+  tasks:
+      
+# Mount Zabbix repo
+  - name: add zabbix repo
+    yum:
+      state: present
+      name: https://repo.zabbix.com/zabbix/4.2/rhel/7/x86_64/zabbix-release-4.2-1.el7.noarch.rpm
+
+# Install Apache
+  - name: install apache
+    yum:
+      state: present
+      name: httpd
+
+# Install PHP 
+  - name: install php
+    yum:
+      state: present
+      name:
+        - php
+        - php-pear
+        - php-cgi
+        - php-common
+        - php-mbstring
+        - php-snmp
+        - php-gd
+        - php-xml
+        - php-mysql
+        - php-gettext
+        - php-bcmath
+        
+# Install EPEL
+  - name: Install pre-reqs
+    yum:
+      state: present
+      name:
+        - epel-release
+        
+# Pre-req for Ansible MYSQL_DB and MYSQL_USer modules
+  - name: install python pip
+    yum:
+      state: present
+      name:
+        - python-setuptools
+        - python-pip
+        - python-devel
+        - mysql-devel
+        - libsemanage-python
+      
+  - name: Install the Python MySQLB module
+    pip:
+      name: pymysql
+        
+# Install Zabbix
+  - name: install zabbix with mysql
+    yum:
+      state: present
+      name:
+        - zabbix-server-mysql
+        - zabbix-web-mysql
+        - zabbix-agent
+        - zabbix-get
+        
+# Install MariaDB
+  - name: Install MariaDB
+    yum:
+      state: present
+      name: mariadb-server
+      
+# Start and Enable MariaDB
+  - name: Start and enable mariadb
+    service:
+      name: mariadb
+      state: started
+      enabled: yes
+
+# Create Database and configure
+  - name: Create Zabbix Database
+    mysql_db:
+      name: zabbix
+      state: present
+      collation: utf8_bin
+      
+  - name: Create Zabbix user and grant permissions
+    mysql_user:
+      name: zabbix
+      password: "{{ password }}"
+      priv: zabbix.*:ALL
+      host: localhost
+      state: present
+  
+  - name: Removes the MySQL test database
+    mysql_db: 
+      db: test
+      state: absent
+      
+  - name: Deletes anonymous MySQL server user for localhost
+    mysql_user: user="" state="absent"
+    
+  - name: Secures the MySQL root user for IPV6 localhost (::1)
+    mysql_user: user="root" password="{{ password }}" host="::1"
+
+  - name: Secures the MySQL root user for IPV4 localhost (127.0.0.1)
+    mysql_user: user="root" password="{{ password }}" host="127.0.0.1"
+
+  - name: Secures the MySQL root user for localhost domain (localhost)
+    mysql_user: user="root" password="{{ password }}" host="localhost"
+  
+  - name: Import MYSQL
+    shell: zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p{{ password }} zabbix
+    ignore_errors: true
+
+# Configure Database for Zabbix in /etc/zabbix/zabbix_server.conf
+  - name: Configure Zabbix conf file
+    lineinfile:
+      path: /etc/zabbix/zabbix_server.conf
+      regexp: 'DBPassword='
+      line: 'DBPassword={{ password }}'
+      
+# Open firewall port 80
+  - name: open firewall
+    firewalld:
+      port: 80/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+
+# Open firewall port 443
+  - name: open firewall
+    firewalld:
+      port: 443/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+
+# Open firewall port 10050
+  - name: open firewall
+    firewalld:
+      port: 10050/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+        
+# Open firewall port 10051
+  - name: open firewall
+    firewalld:
+      port: 10051/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+
+# Config SELinux Apache
+  - name: Set SELinux boolean for Apache
+    seboolean:
+      name: httpd_can_network_connect
+      state: yes
+      persistent: yes
+      
+# Config SELinux DB
+  - name: Set SELinux boolean for DB
+    seboolean:
+      name: httpd_can_network_connect_db
+      state: yes
+      persistent: yes
+
+# Set Zabbix Timezone
+  - name: Set timezone in /etc/httpd/conf.d/zabbix.conf
+    lineinfile:
+      path: /etc/httpd/conf.d/zabbix.conf
+      regexp: '# php_value date.timezone Europe/Riga'
+      line: 'php_value date.timezone America/New_York'
+
+# Enable and Start Apache
+  - name: Enable and start Apache
+    service:
+      name: httpd
+      state: started
+      enabled: true
+
+# Enable and Start Zabbix
+  - name: Enable and start zabbix
+    service:
+      name: zabbix-server
+      enabled: yes
+      state: started
+
+# Enable and Start Zabbix Agent
+  - name: Enable and start zabbix agent
+    service:
+      name: zabbix-agent
+      enabled: yes
+      state: started

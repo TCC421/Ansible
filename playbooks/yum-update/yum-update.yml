@@ -1,0 +1,8 @@
+- name: Update
+  hosts: all
+  
+  tasks:
+  - name: run updates
+    yum:
+      name: '*'
+      state: latest

@@ -1,0 +1,59 @@
+# Add Graylog Repository
+
+# Install Graylog Repo
+- name: Install Graylog Repo
+  command: rpm -Uvh https://packages.graylog2.org/repo/packages/graylog-3.0-repository_latest.rpm
+  
+# Install Graylog
+-name: Install Graylog
+  yum:
+    state: present
+    name:
+      - graylog-server
+  
+# SELinux port add
+- name: Set SELinux boolean for Graylog
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+
+# Enable Graylog service
+- name: Enable graylog service
+  service:
+    name: graylog-server.service
+    state: restarted
+
+# Start Graylog service
+- name: Start graylog service
+  service:
+    name: graylog-server.service
+    enabled: yes
+    
+# Update the graylog config file #1
+- name: Update the graylog config file
+  lineinfile:
+   path: /etc/graylog/server/server.conf
+   regexp: 'password_secret'
+   line: 'password_secret = iBZf7SpYjIlyx7BuiEnNlv1uHiDlIUTJUSdZVxibPNIDILCMvuUhD4G42K7H6lJsIDIjbNdcGUtR7afEb7fEmZ9hDopISA1y'
+   
+# Update the graylog config file #2
+- name: Update the graylog config file
+  lineinfile:
+   path: /etc/graylog/server/server.conf
+   regexp: 'root_password_sha2'
+   line: 'root_password_sha2 = 2c1c52cdb73d24caf779a65b958981b70dfd3bf7288a9ba5c467f38d50e8123f'
+   
+# Update the graylog config file #3
+- name: Update the graylog config file
+  lineinfile:
+   path: /etc/graylog/server/server.conf
+   regexp: 'http_bind_address ='
+   line: 'http_bind_address = {{ graylog_ip }}'
+    
+#- name: Graylog REST API and web interface
+#  seport:
+#    ports: 9000
+#    proto: tcp
+#    setype: http_port_t
+#    state: present

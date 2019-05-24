@@ -1,0 +1,8 @@
+    
+# Installing Java 8
+
+- name: Install Java 8
+  yum:
+    state: present
+    name:
+      - java-1.8.0-openjdk-headless.x86_64

@@ -1,0 +1,80 @@
+# Install EPEL
+- name: Install pre-reqs
+  yum:
+    state: present
+    name:
+        - epel-release
+        
+# Pre-req for Ansible MYSQL_DB and MYSQL_USer modules
+- name: install python pip
+  yum:
+    state: present
+    name:
+        - python-setuptools
+        - python-pip
+        - python-devel
+        - mysql-devel
+        - libsemanage-python
+      
+- name: Install the Python MySQLB module
+  pip:
+    name: pymysql
+      
+# Create Database and configure
+- name: Create Wordpress Database
+  mysql_db:
+    name: wordpress
+    state: present
+    collation: utf8_bin
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+      
+- name: create wordpress user and grant permissions
+  mysql_user:
+    name: wordpress
+    password: "{{ wordpress_password }}"
+    priv: wordpress.*:ALL
+    host: localhost
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+# Install php-gd
+- name: Install php-gd
+  yum:
+    state: present
+    name: php-gd
+        
+# Restart apache
+- name: Restart apache
+  service:
+    name: httpd
+    state: restarted
+        
+# Download wordpress
+- name: Download WordPress
+  get_url: 
+    url: https://wordpress.org/latest.tar.gz 
+    dest: /tmp/wordpress.tar.gz
+
+# Extract wordpress
+- name: Extract WordPress
+  unarchive: 
+    src: /tmp/wordpress.tar.gz
+    dest: /var/www/html
+    remote_src: yes
+        
+# Create upload directory
+- name: Create uploads directory
+  file:
+    path: /var/www/html/wp-content/uploads
+    state: directory
+
+# Assign ownership and permissions to wordpress
+- name: Change ownership
+  file:
+    path: /var/www/html
+    owner: apache
+    group: apache
+    recurse: yes
+    state: directory
