@@ -76,21 +76,21 @@
     
 # Wordpress Configuration #1
 - name: Configure /var/www/html/wordpress/wp-config.php
-  lineinfile:
+  replace:
     path: /var/www/html/wordpress/wp-config.php
     regexp: 'database_name_here'
     replace: 'wordpress'
 
 # Wordpress Configuration #2
 - name: Configure /var/www/html/wordpress/wp-config.php
-  lineinfile:
+  replace:
     path: /var/www/html/wordpress/wp-config.php
     regexp: 'username_here'
     replace: 'wordpress'
 
 # Wordpress Configuration #3
 - name: Configure /var/www/html/wordpress/wp-config.php
-  lineinfile:
+  replace:
     path: /var/www/html/wordpress/wp-config.php
     regexp: 'password_here'
     replace: '{{ wordpress_password }}'
