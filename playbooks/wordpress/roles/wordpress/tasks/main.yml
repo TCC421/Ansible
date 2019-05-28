@@ -70,8 +70,8 @@
 # Copy Config File
 - name: Copy Wordpress config file
   copy:
-    src: /var/www/html/wp-config-sample.php
-    dest: /var/www/html/wp-config.php
+    src: /var/www/html/wordpress/wp-config-sample.php
+    dest: /var/www/html/wordpress/wp-config.php
     remote_src: yes
     
 # Wordpress Configuration #1
