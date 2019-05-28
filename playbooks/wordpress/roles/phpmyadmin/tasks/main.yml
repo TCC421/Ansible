@@ -1,6 +1,7 @@
 # tasks file for phpmyadmin
 - name: install phpmyadmin
   yum:
+    enablerepo: remi-php73
     name: phpmyadmin
     state: present
  
