@@ -10,8 +10,6 @@
     name:
       - php
       - php-common
-      - php-opcache
-      - php-mcrypt
       - php-cli
       - php-gd
       - php-curl
