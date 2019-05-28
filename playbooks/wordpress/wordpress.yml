@@ -1,9 +1,9 @@
 #Auto configure LAMP Server
 - hosts: all
   roles:
-#    - common
-#    - apache
-#    - php
-#    - mysql
+    - common
+    - apache
+    - php
+    - mysql
     - phpmyadmin
-#    - wordpress
+    - wordpress
