@@ -97,10 +97,10 @@
       
   - name: check if root password for mariadb is set
     shell: >
-        mysqladmin -u root status
-      changed_when: false
-      failed_when: false
-      register: root_pwd_check
+      mysqladmin -u root status
+    changed_when: false
+    failed_when: false
+    register: root_pwd_check
  
   - name: set mariadb root password for first time
     mysql_user:
