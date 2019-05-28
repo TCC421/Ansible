@@ -75,22 +75,22 @@
     remote_src: yes
     
 # Wordpress Configuration #1
-- name: Configure /var/www/html/wp-config.php
+- name: Configure /var/www/html/wordpress/wp-config.php
   lineinfile:
-    path: /var/www/html/wp-config.php
+    path: /var/www/html/wordpress/wp-config.php
     regexp: "'define( 'DB_NAME', 'database_name_here' );'"
     line: "'define( 'DB_NAME', 'wordpress' );'"
 
 # Wordpress Configuration #2
-- name: Configure /var/www/html/wp-config.php
+- name: Configure /var/www/html/wordpress/wp-config.php
   lineinfile:
-    path: /var/www/html/wp-config.php
+    path: /var/www/html/wordpress/wp-config.php
     regexp: "'define( 'DB_USER', 'username_here' );'"
     line: "'define( 'DB_USER', 'wordpress' );'"
 
 # Wordpress Configuration #3
-- name: Configure /var/www/html/wp-config.php
+- name: Configure /var/www/html/wordpress/wp-config.php
   lineinfile:
-    path: /var/www/html/wp-config.php
+    path: /var/www/html/wordpress/wp-config.php
     regexp: "'define( 'DB_PASSWORD', 'password_here' );'"
     line: "'define( 'DB_PASSWORD', '{{ wordpress_password }}' );'"
