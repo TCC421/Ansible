@@ -52,12 +52,12 @@
         dest: /etc/sysconfig/network-scripts/ifcfg-br0
         line: "{{ item }}"
       with_items:
-       - TYPE=Bridge
-       - BOOTPROTO=static
-       - DEVICE=br0
-       - ONBOOT=yes
-       - "{{ ipaddr }}"
-       - "{{ netmask }}"
-       - "{{ gateway }}"
-       - "{{ dns1 }}"
+        - TYPE=Bridge
+        - BOOTPROTO=static
+        - DEVICE=br0
+        - ONBOOT=yes
+        - "{{ ipaddr }}"
+        - "{{ netmask }}"
+        - "{{ gateway }}"
+        - "{{ dns1 }}"
         
