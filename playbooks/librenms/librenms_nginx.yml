@@ -1,1 +1,12 @@
-
+- name: Install LibreNMS w/ Nginx, MariaDB, and PHP
+  hosts: all
+  vars:
+  tasks:
+  
+    - name:
+    - name:
+    - name:
+    - name:
+    - name:
+    - name:
+    - name:
