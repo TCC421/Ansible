@@ -43,7 +43,7 @@
         state: touch
         owner: root
         group: root
-        mode: 0755
+        mode: 0644
         
     - name: insert contents into ifcfg-br0
       lineinfile: 
