@@ -1,3 +1,63 @@
-- name: 
-  hosts:
-    tasks:
+- name: Install KVM hypervisor
+  hosts: all
+  vars:
+    ipaddr: 192.168.1.33
+    netmask: 255.255.255.0
+    gateway: 192.168.1.1
+    dns1: 192.168.1.10
+    network_id: ifcfg-eth0
+  tasks:
+  
+    - name: install software packages
+      yum:
+        state: present
+        name:
+          - qemu-kvm
+          - qemu-img
+          - libvirt
+          - libvirt-pythong
+          - libvirt-client
+          - virt-install
+          - virt-viewer
+          - bridge-utils
+          
+    - name: start and enable libvirtd
+      service:
+        name: libvirtd
+        state: started
+        enabled: yes
+        
+    - name: restart network
+      service:
+        name: network
+        state: restarted
+        
+    - name: insert bridge id into network config
+      lineinfile:
+        path: /etc/sysconfig/network-scripts/{{ network_id }}
+        line: 'BRIDGE=br0'
+        
+    - name: create ifcfg-br0
+      file: 
+        path: /etc/sysconfig/network-scripts/ifcfg-br0
+        state: touch
+        owner: root
+        group: root
+        mode: 0755
+        
+    - name: insert contents into ifcfg-br0
+      lineinfile: 
+        state: present
+        insertafter: EOF
+        dest: /etc/sysconfig/network-scripts/ifcfg-br0
+        line: "{{ item }}"
+      with_items:
+        - TYPE=Bridge
+        - BOOTPROTO=static
+        - DEVICE=br0
+        - ONBOOT=yes
+        - {{ ipaddr }}
+        - {{ netmask }}
+        - {{ gateway }}
+        - {{ dns1 }}
+        
