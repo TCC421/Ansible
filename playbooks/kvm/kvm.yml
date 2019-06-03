@@ -56,8 +56,8 @@
         - BOOTPROTO=static
         - DEVICE=br0
         - ONBOOT=yes
-        - {{ ipaddr }}
-        - {{ netmask }}
-        - {{ gateway }}
-        - {{ dns1 }}
+        - "{{ ipaddr }}"
+        - "{{ netmask }}"
+        - "{{ gateway }}"
+        - "{{ dns1 }}"
         
