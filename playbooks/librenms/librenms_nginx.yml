@@ -49,6 +49,7 @@
           - net-snmp
           - net-snmp-utils
           - nmap
+          - php-fpm
           - php-cli
           - php-common
           - php-curl
