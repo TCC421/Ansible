@@ -2,7 +2,7 @@
 - hosts: all
   roles:
     - common
-    - apache
+    - nginx
     - php
     - mysql
     - phpmyadmin
