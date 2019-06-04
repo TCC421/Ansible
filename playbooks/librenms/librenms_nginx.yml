@@ -204,7 +204,7 @@
            location ~ /\.ht {
             deny all;
            }
-          } 
+           } 
  
     - name: Set selinux policy for directories
       sefcontext:
