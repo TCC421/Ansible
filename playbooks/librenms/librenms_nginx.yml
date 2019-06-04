@@ -124,3 +124,81 @@
          enabled: yes
          state: restarted
          daemon_reload: yes
+
+      - name: DateTimezone in php.ini
+        lineinfile: 
+         path: /etc/php.ini
+         regexp: '^;date.timezone ='
+         line: 'date.timezone = Europe/Istanbul'
+         state: present
+         
+      - name: Set selinux policy for directories
+        sefcontext:
+         target: '{{ item.target }}(/.*)?'
+         setype: "{{ item.setype }}"
+         state: present
+        register: filecontext
+        with_items:
+         - { target: '/opt/librenms/logs(/.*)?', setype: 'httpd_sys_content_t' }
+         - { target: '/opt/librenms/logs(/.*)?', setype: 'httpd_sys_rw_content_t' }
+         - { target: '/opt/librenms/rrd(/.*)?', setype: 'httpd_sys_content_t' }
+         - { target: '/opt/librenms/rrd(/.*)?', setype: 'httpd_sys_rw_content_t' }
+         - { target: '/opt/librenms/storage(/.*)?', setype: 'httpd_sys_content_t' }
+         - { target: '/opt/librenms/storage(/.*)?', setype: 'httpd_sys_rw_content_t' }
+         - { target: '/opt/librenms/bootstrap/cache(/.*)?', setype: 'httpd_sys_content_t' }
+         - { target: '/opt/librenms/bootstrap/cache(/.*)?', setype: 'httpd_sys_rw_content_t' }
+
+      - name: Apply new SELinux file context to filesystem
+        command: "restorecon -RFvv /opt/librenms/{{ item }}"
+        with_items:
+         - 'logs'
+         - 'rrd'
+         - 'storage'
+         - 'bootstrap/cache'
+
+      - name: Set httpd_can_sendmail flag on and keep it persistent across reboots
+        seboolean:
+         name: httpd_can_sendmail
+         state: yes
+         persistent: yes
+
+      - name: Create http_ping file
+        blockinfile:
+          path: /opt/http_fping.tt
+          create: yes
+          block: |
+            module http_fping 1.0;
+            require {
+            type httpd_t;
+            class capability net_raw;
+            class rawip_socket { getopt create setopt write read };
+            }
+            #============= httpd_t ==============
+            allow httpd_t self:capability net_raw;
+            allow httpd_t self:rawip_socket { getopt create setopt write read };
+      - name: Create selinux module 
+        command: "{{ item }}"
+        with_items:
+        - checkmodule -M -m -o /opt/http_fping.mod /opt/http_fping.tt
+        - semodule_package -o /opt/http_fping.pp -m /opt/http_fping.mod
+        - semodule -i /opt/http_fping.pp
+
+      - name: remove http_fping files
+        file:
+         path: /opt/http_fping.{{ item }}
+         state: absent
+        with_items:
+         - pp
+         - tt
+         - mod
+
+      - name: firewalld rules
+        firewalld: 
+         zone: public
+         service: "{{ item }}"
+         permanent: yes
+         immediate: yes
+         state: enabled
+        with_items:
+         - http
+         - https
