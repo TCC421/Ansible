@@ -16,6 +16,19 @@
         state: present
         name: https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 
+# Install Nginx
+    - name: install nginx
+      yum:
+        state: present
+        name:
+          - nginx
+          
+    - name: start and enable nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+    
     - name: Install php packages
       yum:
         state: present
