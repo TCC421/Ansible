@@ -102,7 +102,7 @@
     - name: Create DB user
       mysql_user:
         name: librenms
-        password: {{ librenms_password }}
+        password: "{{ librenms_password }}"
         priv: librenms.*:ALL,GRANT
         state: present
     
