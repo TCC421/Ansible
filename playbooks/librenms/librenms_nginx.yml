@@ -21,35 +21,35 @@
         state: present
         enablerepo: remi-php73
         name:
-        - php
-        - composer
-        - cronie
-        - fping 
-        - git
-        - httpd
-        - ImageMagick
-        - jwhois
-        - mariadb 
-        - mariadb-server 
-        - mtr
-        - MySQL-python
-        - net-snmp
-        - net-snmp-utils
-        - nmap
-        - php-cli
-        - php-common
-        - php-curl
-        - php-gd
-        - php-mbstring
-        - php-mysqlnd
-        - php-process
-        - php-snmp
-        - php-xml
-        - php-zip
-        - python-memcached
-        - rrdtool
-        - policycoreutils-python
-       state: installed
+          - php
+          - composer
+          - cronie
+          - fping 
+          - git
+          - httpd
+          - ImageMagick
+          - jwhois
+          - mariadb 
+          - mariadb-server 
+          - mtr
+          - MySQL-python
+          - net-snmp
+          - net-snmp-utils
+          - nmap
+          - php-cli
+          - php-common
+          - php-curl
+          - php-gd
+          - php-mbstring
+          - php-mysqlnd
+          - php-process
+          - php-snmp
+          - php-xml
+          - php-zip
+          - python-memcached
+          - rrdtool
+          - policycoreutils-python
+        state: installed
      
 # Pre-req for Ansible MYSQL_DB and MYSQL_USer modules
     - name: install python pip
