@@ -5,9 +5,9 @@
     name: firewalld
     state: restarted
 
-- name: restart httpd
+- name: restart nginx
   systemd:
-    name: httpd
+    name: nginx
     state: restarted
     
 - name: restart mysql
