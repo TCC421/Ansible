@@ -1,0 +1,6 @@
+- name: Install common applications
+  yum:
+    state: present
+    name:
+      - libsemanage-python
+      - epel-release
