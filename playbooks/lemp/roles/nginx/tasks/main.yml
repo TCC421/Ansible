@@ -1,44 +1,39 @@
+# Install Pre-reqs
+- name: install prereqs
+  yum:
+    state: present
+    name:
+      - epel-release
+          
 # Install Nginx
 - name: install nginx
-  hosts: all
-  tasks:
+  yum:
+    state: present
+    name:
+      - nginx
   
-  # Install Pre-reqs
-    - name: install prereqs
-      yum:
-        state: present
-        name:
-          - epel-release
-          
-  # Install Nginx
-    - name: install nginx
-      yum:
-        state: present
-        name:
-          - nginx
-  
-  # Open firewall
-    - name: open port 80
-      firewalld:
-        service: http
-        permanent: yes
-        state: enabled
-        immediate: yes
-    - name: open port 443
-      firewalld:
-        service: http
-        permanent: yes
-        state: enabled
-        immediate: yes
+# Open firewall
+- name: open port 80
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+    immediate: yes
+- name: open port 443
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+    immediate: yes
         
-  # Start Nginx service
-    - name: start nginx
-      service:
-        name: nginx
-        state: started
+# Start Nginx service
+- name: start nginx
+  service:
+    name: nginx
+    state: started
         
-  # Enable Nginx service
-    - name: enable nginx
-      service:
-        name: nginx
-        enabled: yes
+# Enable Nginx service
+- name: enable nginx
+  service:
+    name: nginx
+    enabled: yes
