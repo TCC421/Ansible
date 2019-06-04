@@ -1,8 +1,0 @@
-# Install Nginx
-- name: Install Nginx
-  hosts: all
-  tasks:
-    
-    - name:
-    - name:
-    - name:
