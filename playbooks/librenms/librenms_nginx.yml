@@ -1,12 +1,126 @@
+# Install LibreNMS
 - name: Install LibreNMS w/ Nginx, MariaDB, and PHP
   hosts: all
-  vars:
   tasks:
   
-    - name:
-    - name:
-    - name:
-    - name:
-    - name:
-    - name:
-    - name:
+    - name: Install Repository
+      yum:
+        name:
+          - epel-release
+    
+    - name: Install LibreNMS requirements
+      yum:
+       name:
+        - composer
+        - cronie
+        - fping 
+        - git
+        - httpd
+        - ImageMagick
+        - jwhois
+        - mariadb 
+        - mariadb-server 
+        - mtr
+        - MySQL-python
+        - net-snmp
+        - net-snmp-utils
+        - nmap
+        - php72w
+        - php72w-cli
+        - php72w-common
+        - php72w-curl
+        - php72w-gd
+        - php72w-mbstring
+        - php72w-mysqlnd
+        - php72w-process
+        - php72w-snmp
+        - php72w-xml
+        - php72w-zip
+        - python-memcached
+        - rrdtool
+        - policycoreutils-python
+       state: installed
+     
+# Pre-req for Ansible MYSQL_DB and MYSQL_USer modules
+    - name: install python pip
+      yum:
+        state: present
+        name:
+          - python-setuptools
+          - python-pip
+          - python-devel
+          - mysql-devel
+          - libsemanage-python
+    
+    - name: Install the Python MySQLB module
+      pip:
+       name: pymysql
+        
+# Create User      
+    - name: Create LibreNMS user
+      user:
+        name: librenms
+        createhome: no
+        system: yes
+        home: /opt/librenms
+        state: present
+        
+    - name: Add nginx to librenms group
+      user:
+        name: nginx
+        groups: librenms
+        append: yes
+        
+    - name: check if librenms directory exists
+      stat: 
+        path: /opt/librenms
+      register: status
+
+    - name: Composer Create Project
+      composer:
+        command: create-project
+        arguments: '--keep-vcs librenms/librenms librenms dev-master'
+        working_dir: /opt
+      when: status.stat.exists == False    
+
+     - name: Start MariaDB
+       service:
+        name: mariadb 
+        enabled: yes
+        state: started
+
+     - name: Create LibreNMS DB
+       mysql_db: 
+        login_user: root 
+        name: librenms
+        encoding: utf8
+        collation: utf8_unicode_ci
+        state: present
+
+      - name: Delete Test DB
+        mysql_db: 
+         login_user: root 
+         name: test
+         state: absent
+
+      - name: Create DB user
+        mysql_user:
+         name: librenms
+         password: librenms 
+         priv: librenms.*:ALL,GRANT
+         state: present
+  
+      - name: Add block in my.cnf
+        blockinfile:
+         path: /etc/my.cnf
+         insertafter: '^socket'
+         block: |
+           innodb_file_per_table=1
+           lower_case_table_names=0
+           
+      - name: Restart MariaDB
+        systemd:
+         name: mariadb 
+         enabled: yes
+         state: restarted
+         daemon_reload: yes
