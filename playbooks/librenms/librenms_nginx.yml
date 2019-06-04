@@ -94,12 +94,18 @@
 
     - name: Create LibreNMS DB
       mysql_db: 
-       login_user: root 
        name: librenms
        encoding: utf8
        collation: utf8_unicode_ci
        state: present
-         
+    
+    - name: Create DB user
+      mysql_user:
+        name: librenms
+        password: {{ librenms_password }}
+        priv: librenms.*:ALL,GRANT
+        state: present
+    
     - name: check if root password for mariadb is set
       shell: >
         mysqladmin -u root status
@@ -147,7 +153,6 @@
       with_items:
         - FLUSH PRIVILEGES
       changed_when: False
-     
   
     - name: Add block in my.cnf
       blockinfile:
@@ -245,6 +250,7 @@
           #============= httpd_t ==============
           allow httpd_t self:capability net_raw;
           allow httpd_t self:rawip_socket { getopt create setopt write read };
+    
     - name: Create selinux module 
       command: "{{ item }}"
       with_items:
