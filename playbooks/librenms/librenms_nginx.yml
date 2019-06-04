@@ -3,7 +3,7 @@
   hosts: all
   vars:
     librenms_password: librenms
-    mysql_root_passwor: password
+    mysql_root_password: password
   tasks:
   
     - name: Install Repository
