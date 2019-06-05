@@ -207,6 +207,13 @@
     - name: Edit /etc/php-fpm.d/www.conf (2)
       lineinfile:
         path: /etc/php-fpm.d/www.conf
+        insertafter: ';user = apache'
+        line: 'user = nginx'
+        state: present
+   
+    - name: Edit /etc/php-fpm.d/www.conf (3)
+      lineinfile:
+        path: /etc/php-fpm.d/www.conf
         regexp: 'listen = 127.0.0.1:9000'
         line: ';listen = 127.0.0.1:9000'
         state: present
@@ -219,11 +226,13 @@
         state: present
    
     - name: Edit /etc/php-fpm.d/www.conf (4)
-      lineinfile:
-        path: /etc/php-fpm.d/www.conf
-        regexp: 'listen = 127.0.0.1:9000'
-        line: ';listen = 127.0.0.1:9000'
-        state: present
+      blockinfile:
+       path: /etc/php-fpm.d/www.conf
+       insertafter: ';listen.mode = 0660'
+       block: |
+          listen.owner = nginx
+          listen.group = nginx
+          listen.mode = 0660
     
     - name Enable and restart PHP-FPM
       service:
@@ -351,7 +360,7 @@
       replace:
        path: /etc/snmp/snmpd.conf
        regexp: 'RANDOMSTRINGGOESHERE'
-       replace: 'helloworld'
+       replace: 'public'
 
     - name: Download distro
       get_url:
