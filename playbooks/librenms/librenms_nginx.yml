@@ -196,7 +196,41 @@
        regexp: '^;date.timezone ='
        line: 'date.timezone = America/New_York'
        state: present
-      
+    
+    - name: Edit /etc/php-fpm.d/www.conf (1)
+      lineinfile:
+        path: /etc/php-fpm.d/www.conf
+        regexp: 'user = apache'
+        line: ';user = apache'
+        state: present
+   
+    - name: Edit /etc/php-fpm.d/www.conf (2)
+      lineinfile:
+        path: /etc/php-fpm.d/www.conf
+        regexp: 'listen = 127.0.0.1:9000'
+        line: ';listen = 127.0.0.1:9000'
+        state: present
+    
+    - name: Edit /etc/php-fpm.d/www.conf (3)
+      lineinfile:
+        path: /etc/php-fpm.d/www.conf
+        insertafter: ';listen = 127.0.0.1:9000'
+        line: 'listen = /var/run/php-fpm/php-fpm.sock'
+        state: present
+   
+    - name: Edit /etc/php-fpm.d/www.conf (4)
+      lineinfile:
+        path: /etc/php-fpm.d/www.conf
+        regexp: 'listen = 127.0.0.1:9000'
+        line: ';listen = 127.0.0.1:9000'
+        state: present
+    
+    - name Enable and restart PHP-FPM
+      service:
+        name: php-fpm
+        enabled: yes
+        daemon_reload: yes
+        
     - name: Create  Librenms http file
       blockinfile:
         path: /etc/httpd/conf.d/librenms.conf
@@ -220,7 +254,7 @@
            location ~ \.php {
             include fastcgi.conf;
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass unix:/var/run/php-fpm/php7.2-fpm.sock;
+            fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
            }
            location ~ /\.ht {
             deny all;
