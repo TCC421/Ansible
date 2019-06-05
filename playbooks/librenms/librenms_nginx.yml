@@ -4,6 +4,7 @@
   vars:
     librenms_password: librenms
     mysql_root_password: password
+    community_string: public
   tasks:
   
     - name: Install Repository
@@ -362,7 +363,7 @@
       replace:
        path: /etc/snmp/snmpd.conf
        regexp: 'RANDOMSTRINGGOESHERE'
-       replace: 'public'
+       replace: "{{ community_string }}"
 
     - name: Download distro
       get_url:
