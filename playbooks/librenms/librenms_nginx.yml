@@ -32,7 +32,7 @@
     - name: Install php packages
       yum:
         state: present
-        enablerepo: remi-php73
+        enablerepo: remi-php72
         name:
           - php
           - composer
