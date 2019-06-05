@@ -194,7 +194,7 @@
       lineinfile: 
        path: /etc/php.ini
        regexp: '^;date.timezone ='
-       line: 'date.timezone = Europe/Istanbul'
+       line: 'date.timezone = America/New_York'
        state: present
       
     - name: Create  Librenms http file
@@ -298,7 +298,14 @@
       with_items:
        - http
        - https
-
+    
+    - name: firewall rule for 3306/tcp
+      firewalld:
+        port: 3306/tcp
+        permanent: yes
+        immediate: yes
+        state: enabled
+    
     - name: copy snmpd.conf
       copy:
        remote_src: yes
