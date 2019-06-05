@@ -234,7 +234,7 @@
           listen.group = nginx
           listen.mode = 0660
     
-    - name Enable and restart PHP-FPM
+    - name: Enable and restart PHP-FPM
       service:
         name: php-fpm
         enabled: yes
