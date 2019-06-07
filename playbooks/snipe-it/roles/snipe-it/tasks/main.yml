@@ -13,6 +13,7 @@
   copy:
     src: /var/www/snipe-it/.env.example
     dest: /var/www/snipe-it/.env
+    remote_src: yes
     
 - name: generate production app key
   shell: php artisan key:generate
