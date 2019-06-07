@@ -21,3 +21,4 @@
         - php-gd
         - php-dom
         - php-mcrypt
+        - php-bcmath
