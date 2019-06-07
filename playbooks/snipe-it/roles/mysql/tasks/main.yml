@@ -1,1 +1,88 @@
+# Install MariaDB for Snipe-IT
 
+  - name: install python pip
+    yum:
+      state: present
+      name:
+        - python-setuptools
+        - python-pip
+        - python-devel
+        - mysql-devel
+        - libsemanage-python
+
+- name: install the python MySQLB module
+    pip:
+      name: pymysql
+
+- name: install MariaDB
+    yum:
+      state: present
+      name: mariadb-server
+      
+- name: start and enable MariaDB
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+
+- name: create snipe-it database
+  mysql_db:
+    name: snipeit
+    state: present
+    collation: utf8_bin
+      
+- name: create snipeit user and grant permissions
+  mysql_user:
+    name: snipeit
+    password: "{{ snipeit_password }}"
+    priv: snipeit.*:ALL
+    host: localhost
+    state: present
+      
+- name: check if root password for MariaDB is set
+  shell: >
+    mysqladmin -u root status
+  changed_when: false
+  failed_when: false
+  register: root_pwd_check
+ 
+- name: set MariaDB root password for first time
+  mysql_user:
+    name: root
+    password: "{{ mysql_root_password }}"
+    host_all: yes
+    state: present
+  when: root_pwd_check.rc == 0
+ 
+- name: flush privileges
+  command: 'mysql -ne "{{ item }}" -uroot -p"{{ mysql_root_password }}"'
+  with_items:
+    - FLUSH PRIVILEGES
+  changed_when: False
+ 
+- name: remove anonymous users
+  mysql_user:
+    name: ''
+    host_all: yes
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    state: absent
+ 
+- name: remove test database and access to it
+  mysql_db:
+    name: test
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    state: absent
+ 
+- name: disallow root login remotely
+  command: 'mysql -ne "{{ item }}" -uroot -p"{{ mysql_root_password }}"'
+  with_items:
+    - DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')
+  changed_when: False
+ 
+- name: flush privileges
+  command: 'mysql -ne "{{ item }}" -uroot -p"{{ mysql_root_password }}"'
+  with_items:
+    - FLUSH PRIVILEGES
+  changed_when: False
