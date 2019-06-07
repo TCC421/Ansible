@@ -19,7 +19,7 @@
   shell: curl -sS https://getcomposer.org/installer | php chdir=/var/www/snipe-it creates=/var/snipe-it/composer.phar
 
 - name: install php requirements with composer
-  shell: php sudo composer install --no-dev --prefer-source chdir=/var/www/snipe-it
+  shell: composer install --no-dev --prefer-source chdir=/var/www/snipe-it
   
 - name: generate production app key
   shell: php artisan key:generate
