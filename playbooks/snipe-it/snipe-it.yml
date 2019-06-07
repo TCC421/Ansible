@@ -1,1 +1,9 @@
+# Playbook to install Snipe-IT
 
+- hosts: all
+  roles:
+    - common
+    - apache
+    - mysql
+    - php
+    - snipe-it
