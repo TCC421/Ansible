@@ -11,13 +11,13 @@
       - libsemanage-python
 
 - name: install the python MySQLB module
-    pip:
-      name: pymysql
+  pip:
+    name: pymysql
 
 - name: install MariaDB
-    yum:
-      state: present
-      name: mariadb-server
+  yum:
+    state: present
+    name: mariadb-server
       
 - name: start and enable MariaDB
   service:
