@@ -1,14 +1,14 @@
 # Install MariaDB for Snipe-IT
 
-  - name: install python pip
-    yum:
-      state: present
-      name:
-        - python-setuptools
-        - python-pip
-        - python-devel
-        - mysql-devel
-        - libsemanage-python
+- name: install python pip
+  yum:
+    state: present
+    name:
+      - python-setuptools
+      - python-pip
+      - python-devel
+      - mysql-devel
+      - libsemanage-python
 
 - name: install the python MySQLB module
     pip:
