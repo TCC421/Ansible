@@ -15,6 +15,12 @@
     dest: /var/www/snipe-it/.env
     remote_src: yes
     
+- name: install composer locally
+  shell: curl -sS https://getcomposer.org/installer | php chdir=/var/www/snipe-it creates=/var/snipe-it/composer.phar
+
+- name: install php requirements with composer
+  shell: php composer.phar install --prefer-source --no-interaction chdir=/var/www/snipe-it
+  
 - name: generate production app key
   shell: php artisan key:generate
 
@@ -68,12 +74,6 @@
     group: apache
     recurse: yes
     mode: '0755'
-
-- name: install composer locally
-  shell: curl -sS https://getcomposer.org/installer | php chdir=/var/www/snipe-it creates=/var/snipe-it/composer.phar
-
-- name: install php requirements with composer
-  shell: php composer.phar install --prefer-source --no-interaction chdir=/var/www/snipe-it
 
 - name: restart apache
   service:
