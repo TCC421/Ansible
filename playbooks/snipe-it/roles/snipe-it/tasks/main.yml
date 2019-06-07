@@ -1,1 +1,58 @@
+- name: install git
+  yum:
+    state: present
+    name:
+      - git
+      
+- name: clone snipeit repo      
+  git:
+    repo: https://github.com/snipe/snipe-it
+    dest: /var/www/snipe-it
+ 
+- name: create the .env file
+  copy:
+    src: /var/www/snipe-it/.env.example
+    dest: /var/www/snipe-it/.env
+    
+- name: generate production app key
+  shell: php artisan key:generate
 
+- name: 1) Edit /var/www/snipe-it/.env
+  lineinfile:
+    path: /var/www/snipe-it/.env
+    regexp: 'APP_URL=null'
+    line: 'APP_URL={{ snipeit_url }}'
+    state: present
+
+- name: 2) Edit /var/www/snipe-it/.env
+  lineinfile:
+    path: /var/www/snipe-it/.env
+    regexp: "APP_TIMEZONE='UTC'"
+    line: "'America/New_York'"
+    state: present
+
+- name: 3) Edit /var/www/snipe-it/.env
+  lineinfile:
+    path: /var/www/snipe-it/.env
+    regexp: 'DB_DATABASE=null'
+    line: 'DB_DATABASE={{ db_database }}'
+    state: present
+
+- name: 4) Edit /var/www/snipe-it/.env
+  lineinfile:
+    path: /var/www/snipe-it/.env
+    regexp: 'DB_USERNAME=null'
+    line: 'DB_USERNAME={{ db_username }}'
+    state: present
+    
+- name: 5) Edit /var/www/snipe-it/.env
+  lineinfile:
+    path: /var/www/snipe-it/.env
+    regexp: 'DB_PASSWORD=null'
+    line: 'DB_PASSWORD={{ db_password }}'
+    state: present
+
+- name: restart apache
+  service:
+    name: httpd
+    state: restarted
