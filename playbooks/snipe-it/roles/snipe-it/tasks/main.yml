@@ -18,6 +18,9 @@
 - name: install composer locally
   shell: curl -sS https://getcomposer.org/installer | php chdir=/var/www/snipe-it creates=/var/www/snipe-it/composer.phar
   
+- name: mv composer.phar
+  command: mv /var/www/snipe-it/composer.phar /usr/bin/composer
+  
 - name: 1) Edit /var/www/snipe-it/.env
   lineinfile:
     path: /var/www/snipe-it/.env
@@ -70,7 +73,7 @@
     mode: '0755'
     
 - name: install php requirements with composer
-  shell: composer install --no-dev --prefer-source chdir=/var/www/snipe-it
+  shell: composer install --no-dev --prefer-source
   
 - name: generate production app key
   shell: php artisan key:generate
