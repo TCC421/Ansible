@@ -17,7 +17,7 @@
     
 - name: install composer locally
   shell: curl -sS https://getcomposer.org/installer | php chdir=/var/www/snipe-it creates=/var/snipe-it/composer.phar
-    warn: false
+    warn: no
 
 - name: install php requirements with composer
   shell: php sudo composer install --no-dev --prefer-source chdir=/var/www/snipe-it
