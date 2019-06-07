@@ -16,8 +16,8 @@
     remote_src: yes
     
 - name: install composer locally
-  shell: curl -sS https://getcomposer.org/installer | php chdir=/var/www/snipe-it creates=/var/snipe-it/composer.phar
-
+  shell: curl -sS https://getcomposer.org/installer | php chdir=/var/www/snipe-it creates=/var/www/snipe-it/composer.phar
+  
 - name: install php requirements with composer
   shell: composer install --no-dev --prefer-source chdir=/var/www/snipe-it
   
