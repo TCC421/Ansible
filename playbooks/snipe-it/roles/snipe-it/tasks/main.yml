@@ -52,6 +52,22 @@
     line: 'DB_PASSWORD={{ db_password }}'
     state: present
 
+- name: change file and group permissions for storage
+  file:
+    path: /var/www/snipe-it/storage
+    owner: apache
+    group: apache
+    recurse: yes
+    mode: '0755'
+    
+- name: change file and group permissions for public/uploads
+  file:
+    path: /var/www/snipe-it/public/uploads
+    owner: apache
+    group: apache
+    recurse: yes
+    mode: '0755'
+
 - name: restart apache
   service:
     name: httpd
