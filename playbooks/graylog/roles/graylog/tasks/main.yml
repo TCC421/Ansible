@@ -1,10 +1,13 @@
 # Add Graylog Repository
+- name: create gpgkey for graylog from template
 
 - name: Add Graylog repo
   yum_repository:
     name: graylog
-    description: graylog repo
     baseurl: https://packages.graylog2.org/repo/el/stable/3.0/$basearch/
+    gpgcheck: 1
+    repo_gpgcheck: 0
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-graylog
     
 # Install Graylog Repo
 #- name: Install Graylog Repo
