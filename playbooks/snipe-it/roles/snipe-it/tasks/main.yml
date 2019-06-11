@@ -77,6 +77,23 @@
   
 - name: generate production app key
   shell: php artisan key:generate
+    
+- name: create virtual host
+  blockinfile:
+    path: /etc/httpd/conf.d/snipeit.example.com.conf
+    create: yes
+    marker: ""
+    block: |
+      <VirtualHost *:80>
+        ServerName snipeit.YourDomain.com
+        DocumentRoot /var/www/snipe-it/public
+        <Directory /var/www/snipe-it/public>
+          Options Indexes FollowSymLinks MultiViews
+          AllowOverride All
+          Order allow,deny
+          allow from all
+        </Directory>
+      </VirtualHost>
 
 - name: restart apache
   service:
