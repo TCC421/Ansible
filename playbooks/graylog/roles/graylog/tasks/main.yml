@@ -49,7 +49,7 @@
   lineinfile:
    path: /etc/graylog/server/server.conf
    regexp: 'http_bind_address ='
-   line: 'http_bind_address = {{ graylog_ip }}'
+   line: 'http_bind_address = {{ graylog_ip }}:9000'
     
 #- name: Graylog REST API and web interface
 #  seport:
