@@ -48,7 +48,7 @@
 - name: Update the graylog config file
   lineinfile:
    path: /etc/graylog/server/server.conf
-   regexp: 'http_bind_address ='
+   regexp: '#http_bind_address = 127.0.0.1:9000'
    line: 'http_bind_address = {{ graylog_ip }}:9000'
    
 - name: open firewall port 9000
