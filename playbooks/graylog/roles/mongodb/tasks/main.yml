@@ -6,6 +6,7 @@
   yum_repository:
     name: MongoDB Repository
     description: MongoDB Repo
+    enabled: yes
     baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
     gpgkey: https://www.mongodb.org/static/pgp/server-4.0.asc
 
