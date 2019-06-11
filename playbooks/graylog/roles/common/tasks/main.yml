@@ -1,4 +1,4 @@
-- name Install pre-reqs
+- name: install pre-reqs
   yum:
     state: present
     name:
