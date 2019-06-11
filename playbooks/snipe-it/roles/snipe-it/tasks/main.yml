@@ -18,7 +18,6 @@
     
 - name: install composer locally
   shell: curl -sS https://getcomposer.org/installer | php chdir=/var/www/snipe-it creates=/var/www/snipe-it/composer.phar
-  command_warnings: false
   
 - name: mv composer.phar
   command: mv /var/www/snipe-it/composer.phar /usr/bin/composer
