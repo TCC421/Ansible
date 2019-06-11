@@ -5,7 +5,7 @@
   command: rpm -Uvh https://packages.graylog2.org/repo/packages/graylog-3.0-repository_latest.rpm
   
 # Install Graylog
--name: Install Graylog
+- name: Install Graylog
   yum:
     state: present
     name:
