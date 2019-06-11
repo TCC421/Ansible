@@ -78,7 +78,6 @@
   shell: | 
     cd /var/www/snipe-it/
     composer install --no-dev --prefer-source
-    yes
   
 - name: generate production app key
   shell: |
