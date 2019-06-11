@@ -53,15 +53,9 @@
     enabled: yes
     state: restarted
 
-# Enable Graylog service
-#- name: Enable graylog service
-#  service:
-#    name: graylog-server.service
-#    state: restarted
-
-#- name: Graylog REST API and web interface
-#  seport:
-#    ports: 9000
-#    proto: tcp
-#    setype: http_port_t
-#    state: present
+- name: Graylog REST API and web interface
+  seport:
+    ports: 9000
+    proto: tcp
+    setype: http_port_t
+    state: present
