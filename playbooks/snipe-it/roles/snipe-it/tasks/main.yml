@@ -78,17 +78,17 @@
   shell: | 
     cd /var/www/snipe-it/
     composer install --no-dev --prefer-source
+  
+- name: generate production app key
+  shell:
+    cd /var/www/snipe-it/
+    php artisan key:generate
     
     expect: ">"
     send "yes\n"
     exit 0
   args:
     executable: /usr/bin/expect
-  
-- name: generate production app key
-  shell: |
-    cd /var/www/snipe-it/
-    php artisan key:generate
  
 - name: Set selinux policy for directories
   sefcontext:
