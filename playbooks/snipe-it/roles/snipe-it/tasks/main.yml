@@ -18,7 +18,7 @@
     
 - name: install composer locally
   shell: curl -sS https://getcomposer.org/installer | php chdir=/var/www/snipe-it creates=/var/www/snipe-it/composer.phar
-  ignore_errors: True
+  command_warnings: false
   
 - name: mv composer.phar
   command: mv /var/www/snipe-it/composer.phar /usr/bin/composer
@@ -83,6 +83,7 @@
   shell: |
     cd /var/www/snipe-it/
     php artisan key:generate
+    yes
     
 - name: create virtual host
   blockinfile:
