@@ -17,18 +17,6 @@
     name: httpd_can_network_connect
     state: yes
     persistent: yes
-
-# Enable Graylog service
-- name: Enable graylog service
-  service:
-    name: graylog-server.service
-    state: restarted
-
-# Start Graylog service
-- name: Start graylog service
-  service:
-    name: graylog-server.service
-    enabled: yes
     
 # Update the graylog config file #1
 - name: Update the graylog config file
@@ -57,7 +45,20 @@
     permanent: true
     state: enabled
     immediate: yes
-    
+
+# Start Graylog service
+- name: Start graylog service
+  service:
+    name: graylog-server.service
+    enabled: yes
+    state: restarted
+
+# Enable Graylog service
+#- name: Enable graylog service
+#  service:
+#    name: graylog-server.service
+#    state: restarted
+
 #- name: Graylog REST API and web interface
 #  seport:
 #    ports: 9000
