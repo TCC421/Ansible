@@ -1,8 +1,9 @@
-- name: install git
+- name: install git and expect
   yum:
     state: present
     name:
       - git
+      - expect
       
 - name: clone snipeit repo      
   git:
@@ -77,11 +78,17 @@
   shell: | 
     cd /var/www/snipe-it/
     composer install --no-dev --prefer-source
+    
+    expect: "Do you really wish to run this command? (yes/no) [no]:"
+    send "yes"
+    exit 0
+  args:
+    executable: /usr/bin/expect
   
-#- name: generate production app key
-#  shell: |
-#    cd /var/www/snipe-it/
-#    php artisan key:generate
+- name: generate production app key
+  shell: |
+    cd /var/www/snipe-it/
+    php artisan key:generate
  
 - name: Set selinux policy for directories
   sefcontext:
