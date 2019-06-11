@@ -76,7 +76,7 @@
   shell: composer install --no-dev --prefer-source
   
 - name: generate production app key
-  shell: php artisan key:generate
+  shell: /var/www/snipe-it/php artisan key:generate
     
 - name: create virtual host
   blockinfile:
