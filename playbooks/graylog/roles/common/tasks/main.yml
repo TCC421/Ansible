@@ -3,4 +3,4 @@
     state: present
     name:
       - epel-release
-      - policycorecutils-python
+      - policycoreutils-python
