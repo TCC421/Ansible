@@ -78,12 +78,29 @@
     cd /var/www/snipe-it/
     composer install --no-dev --prefer-source
   
-- name: generate production app key
-  shell: |
-    cd /var/www/snipe-it/
-    php artisan key:generate
-    yes
-    
+#- name: generate production app key
+#  shell: |
+#    cd /var/www/snipe-it/
+#    php artisan key:generate
+ 
+- name: Set selinux policy for directories
+  sefcontext:
+   target: '{{ item.target }}(/.*)?'
+   setype: "{{ item.setype }}"
+   state: present
+  register: filecontext
+  with_items:
+   - { target: '/var/www/snipe-it/storage(/.*)?', setype: 'httpd_sys_content_t' }
+   - { target: '/var/www/snipe-it/storage(/.*)?', setype: 'httpd_sys_rw_content_t' }
+   - { target: '/var/www/snipe-it/public(/.*)?', setype: 'httpd_sys_content_t' }
+   - { target: '/var/www/snipe-it/public(/.*)?', setype: 'httpd_sys_rw_content_t' }
+   
+- name: Apply new SELinux file context to filesystem
+  command: "restorecon -RFvv /var/www/snipe-it/{{ item }}"
+    with_items:
+      - 'public'
+      - 'storage'
+
 - name: create virtual host
   blockinfile:
     path: /etc/httpd/conf.d/snipeit.example.com.conf
