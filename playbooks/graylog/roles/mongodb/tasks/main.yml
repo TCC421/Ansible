@@ -2,31 +2,31 @@
 
 # Add repository
 
--name: Add MongoDB repo
- yum_repository:
-   name: MongoDB Repository
-   description: MongoDB Repo
-   baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
-   gpgkey: https://www.mongodb.org/static/pgp/server-4.0.asc
+- name: Add MongoDB repo
+  yum_repository:
+    name: MongoDB Repository
+    description: MongoDB Repo
+    baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
+    gpgkey: https://www.mongodb.org/static/pgp/server-4.0.asc
 
 # Install MongoDB
--name: install MongoDB
- yum:
-   state: latest
-   name:
-     - mongodb-org
-      
+- name: install MongoDB
+  yum:
+    state: latest
+    name:
+      - mongodb-org
+
 # Enable MongoDB
--name: Enable MongoDB
- service:
-   name: mongod.service
-   enabled: yes
+- name: Enable MongoDB
+  service:
+    name: mongod.service
+    enabled: yes
     
 # Restart MongoDB
--name: Restart MongoDB
- service:
-   name: mongod.service
-   state: restarted
+- name: Restart MongoDB
+  service:
+    name: mongod.service
+    state: restarted
 
 # SELinux port 27017
 - name: MongoDB’s default port
