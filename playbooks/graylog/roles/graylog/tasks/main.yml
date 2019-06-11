@@ -50,6 +50,13 @@
    path: /etc/graylog/server/server.conf
    regexp: 'http_bind_address ='
    line: 'http_bind_address = {{ graylog_ip }}:9000'
+   
+- name: open firewall port 9000
+  firewalld:
+    port: 9000/tcp
+    permanent: true
+    state: enabled
+    immediate: yes
     
 #- name: Graylog REST API and web interface
 #  seport:
