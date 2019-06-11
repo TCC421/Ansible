@@ -79,7 +79,7 @@
     cd /var/www/snipe-it/
     composer install --no-dev --prefer-source
     
-    expect: "Do you really wish to run this command? (yes/no) [no]:"
+    expect: ">"
     send "yes\n"
     exit 0
   args:
