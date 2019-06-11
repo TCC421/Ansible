@@ -81,7 +81,9 @@
     
 - name: generate production app key
   shell: yes | php artisan key:generate
- 
+  args:
+    chdir: /var/www/snipe-it/
+    
 - name: Set selinux policy for directories
   sefcontext:
    target: '{{ item.target }}(/.*)?'
