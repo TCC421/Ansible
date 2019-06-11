@@ -75,13 +75,12 @@
     mode: '0755'
     
 - name: install php requirements with composer
-  shell: | 
-    cd /var/www/snipe-it/
-    composer install --no-dev --prefer-source
-  
+  shell: composer install --no-dev --prefer-source
+  args:
+    chdir: /var/www/snipe-it/
+    
 - name: generate production app key
   shell:
-    cd /var/www/snipe-it/
     php artisan key:generate
     
     expect ">"
@@ -89,6 +88,7 @@
     exit 0
   args:
     executable: /usr/bin/expect
+    chdir: /var/www/snipe-it/
  
 - name: Set selinux policy for directories
   sefcontext:
