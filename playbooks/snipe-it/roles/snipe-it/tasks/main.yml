@@ -97,9 +97,9 @@
    
 - name: Apply new SELinux file context to filesystem
   command: "restorecon -RFvv /var/www/snipe-it/{{ item }}"
-    with_items:
-      - 'public'
-      - 'storage'
+  with_items:
+    - 'public'
+    - 'storage'
 
 - name: create virtual host
   blockinfile:
