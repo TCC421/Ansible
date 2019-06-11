@@ -83,7 +83,7 @@
   shell:
     php artisan key:generate
     
-    expect ">"
+    expect "Do you really wish to run this command? (yes/no) [no]:"
     send "yes\n"
     exit 0
   args:
