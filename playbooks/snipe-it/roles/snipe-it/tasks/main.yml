@@ -80,15 +80,7 @@
     chdir: /var/www/snipe-it/
     
 - name: generate production app key
-  shell:
-    php artisan key:generate
-    
-    expect "Do you really wish to run this command? (yes/no) [no]:"
-    send "yes\n"
-    exit 0
-  args:
-    executable: /usr/bin/expect
-    chdir: /var/www/snipe-it/
+  shell: yes | php artisan key:generate
  
 - name: Set selinux policy for directories
   sefcontext:
