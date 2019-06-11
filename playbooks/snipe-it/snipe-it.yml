@@ -2,8 +2,8 @@
 
 - hosts: all
   roles:
-    - common
-    - apache
-    - mysql
-    - php
-#    - snipe-it
+#    - common
+#    - apache
+#    - mysql
+#    - php
+    - snipe-it
