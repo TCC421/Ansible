@@ -84,7 +84,7 @@
     cd /var/www/snipe-it/
     php artisan key:generate
     
-    expect: ">"
+    expect ">"
     send "yes\n"
     exit 0
   args:
