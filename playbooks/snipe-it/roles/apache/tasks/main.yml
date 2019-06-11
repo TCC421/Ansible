@@ -12,14 +12,21 @@
     state: started
     enabled: true
     
-- name: open port 80
+- name: firewall open http
   firewalld:
     service: http
     permanent: true
     state: enabled
     immediate: yes
-    
-- name: open port 443
+
+- name: firewall open port 80
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: firewall open https
   firewalld:
     service: https
     permanent: true
