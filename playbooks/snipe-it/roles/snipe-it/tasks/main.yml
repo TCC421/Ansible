@@ -73,7 +73,7 @@
     mode: '0755'
     
 - name: install php requirements with composer
-  shell: composer install --no-dev --prefer-source
+  shell: /var/www/snipe-it/composer install --no-dev --prefer-source
   
 - name: generate production app key
   shell: /var/www/snipe-it/php artisan key:generate
