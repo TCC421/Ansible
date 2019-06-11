@@ -1,8 +1,13 @@
 # Add Graylog Repository
 
+- name: Add Graylog repo
+  yum_repository:
+    name: graylog
+    baseurl: https://packages.graylog2.org/repo/el/stable/3.0/$basearch/
+    
 # Install Graylog Repo
-- name: Install Graylog Repo
-  command: rpm -Uvh https://packages.graylog2.org/repo/packages/graylog-3.0-repository_latest.rpm
+#- name: Install Graylog Repo
+#  command: rpm -Uvh https://packages.graylog2.org/repo/packages/graylog-3.0-repository_latest.rpm
   
 # Install Graylog
 - name: Install Graylog
