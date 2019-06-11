@@ -4,7 +4,7 @@
 
 - name: Add MongoDB repo
   yum_repository:
-    name: MongoDB Repository
+    name: MongoDB
     description: MongoDB Repo
     enabled: yes
     baseurl: https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/
