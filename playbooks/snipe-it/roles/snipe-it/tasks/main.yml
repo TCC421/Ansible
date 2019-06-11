@@ -80,7 +80,7 @@
     composer install --no-dev --prefer-source
     
     expect: "Do you really wish to run this command? (yes/no) [no]:"
-    send "yes"
+    send "yes\n"
     exit 0
   args:
     executable: /usr/bin/expect
