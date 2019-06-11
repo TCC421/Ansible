@@ -8,6 +8,7 @@
   git:
     repo: https://github.com/snipe/snipe-it
     dest: /var/www/snipe-it
+    force: yes
  
 - name: create the .env file
   copy:
