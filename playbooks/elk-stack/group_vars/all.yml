@@ -11,4 +11,4 @@ kibana_password: admin
 # The system user that Nginx will use
 nginx_user: www-data
 # The IP address of the ELK server that is going to be installed
-elk_ip: 192.168.1.56
+elk_ip: 192.168.1.73
