@@ -24,14 +24,7 @@
       port: 10051/tcp
       permanent: yes
       state: enabled
-      immediate: yes
-
-# Config SELinux Apache
-  - name: Set SELinux boolean for Apache
-    seboolean:
-      name: httpd_can_network_connect
-      state: yes
-      persistent: yes      
+      immediate: yes     
 
 # Config SELinux DB
   - name: Set SELinux boolean for DB
