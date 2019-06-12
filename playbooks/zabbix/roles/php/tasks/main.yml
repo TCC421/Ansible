@@ -1,1 +1,16 @@
-
+# Install PHP 
+  - name: install php
+    yum:
+      state: present
+      name:
+        - php
+        - php-pear
+        - php-cgi
+        - php-common
+        - php-mbstring
+        - php-snmp
+        - php-gd
+        - php-xml
+        - php-mysql
+        - php-gettext
+        - php-bcmath
