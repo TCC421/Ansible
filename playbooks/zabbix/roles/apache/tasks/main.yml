@@ -1,0 +1,35 @@
+# Install Apache
+  - name: install apache
+    yum:
+      state: present
+      name: httpd
+      
+# Open firewall port 80
+  - name: open firewall
+    firewalld:
+      port: 80/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+
+# Open firewall port 443
+  - name: open firewall
+    firewalld:
+      port: 443/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+      
+# Config SELinux Apache
+  - name: Set SELinux boolean for Apache
+    seboolean:
+      name: httpd_can_network_connect
+      state: yes
+      persistent: yes
+      
+# Enable and Start Apache
+  - name: Enable and start Apache
+    service:
+      name: httpd
+      state: started
+      enabled: true
