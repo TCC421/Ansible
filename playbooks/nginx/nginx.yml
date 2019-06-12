@@ -20,13 +20,14 @@
   # Open firewall
     - name: open port 80
       firewalld:
-        service: http
+        port: 80/tcp
         permanent: yes
         state: enabled
         immediate: yes
+    
     - name: open port 443
       firewalld:
-        service: http
+        port: 443/tcp
         permanent: yes
         state: enabled
         immediate: yes
