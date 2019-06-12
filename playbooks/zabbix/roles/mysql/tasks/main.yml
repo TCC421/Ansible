@@ -87,7 +87,3 @@
     with_items:
       - FLUSH PRIVILEGES
     changed_when: False
-
-  - name: Import MYSQL
-    shell: zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p{{ zabbix_password }} zabbix
-    ignore_errors: true
