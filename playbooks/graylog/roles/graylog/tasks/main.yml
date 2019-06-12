@@ -1,5 +1,12 @@
 # Add Graylog Repository
 - name: create gpgkey for graylog from template
+  template:
+    src: gpgkey.j2
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-graylog
+    owner: root
+    group: root
+    remote_src: yes
+    mode: '0644'
 
 - name: Add Graylog repo
   yum_repository:
