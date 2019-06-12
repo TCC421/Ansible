@@ -4,3 +4,4 @@
       state: present
       name:
         - epel-release
+        - libsemanage-python
