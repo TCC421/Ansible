@@ -3,6 +3,13 @@
     yum:
       state: present
       name: httpd
+
+# Config SELinux Apache
+  - name: Set SELinux boolean for Apache
+    seboolean:
+      name: httpd_can_network_connect
+      state: yes
+      persistent: yes 
       
 # Open firewall port 80
   - name: open firewall
