@@ -16,10 +16,6 @@
     repo_gpgcheck: 0
     gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-graylog
     
-# Install Graylog Repo
-#- name: Install Graylog Repo
-#  command: rpm -Uvh https://packages.graylog2.org/repo/packages/graylog-3.0-repository_latest.rpm
-  
 # Install Graylog
 - name: Install Graylog
   yum:
@@ -69,9 +65,5 @@
     enabled: yes
     state: restarted
 
-- name: Graylog REST API and web interface
-  seport:
-    ports: 9000
-    proto: tcp
-    setype: http_port_t
-    state: present
+- name: firewalld reload
+  command: firewall-cmd --reload
