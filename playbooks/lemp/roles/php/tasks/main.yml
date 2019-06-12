@@ -6,12 +6,13 @@
 - name: Install php packages
   yum:
     state: present
+    enablerepo: remi-php73
     name:
-      - php73
-      - php73-php-common
-      - php73-php-opcache
-      - php73-php-mcrypt
-      - php73-php-cli
-      - php73-php-gd
-      - php73-php-curl
-      - php73-php-mysqlnd
+      - php
+      - php-common
+      - php-opcache
+      - php-mcrypt
+      - php-cli
+      - php-gd
+      - php-curl
+      - php-mysqlnd
