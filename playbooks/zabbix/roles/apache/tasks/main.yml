@@ -20,13 +20,6 @@
       state: enabled
       immediate: yes
       
-# Config SELinux Apache
-  - name: Set SELinux boolean for Apache
-    seboolean:
-      name: httpd_can_network_connect
-      state: yes
-      persistent: yes
-      
 # Enable and Start Apache
   - name: Enable and start Apache
     service:
