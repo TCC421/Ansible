@@ -2,8 +2,8 @@
 
 - hosts: all
   roles:
-#    - common
-#    - java
-#    - mongodb
-#    - elasticsearch
+    - common
+    - java
+    - mongodb
+    - elasticsearch
     - graylog
