@@ -7,7 +7,6 @@
         - python-pip
         - python-devel
         - mysql-devel
-        - libsemanage-python
       
   - name: Install the Python MySQLB module
     pip:
