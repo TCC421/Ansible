@@ -1,0 +1,6 @@
+# Install EPEL
+  - name: Install pre-reqs
+    yum:
+      state: present
+      name:
+        - epel-release
