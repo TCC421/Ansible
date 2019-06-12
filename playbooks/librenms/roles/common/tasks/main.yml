@@ -1,0 +1,6 @@
+- name: Install Pre-Reqs
+  yum:
+    name:
+      - epel-release
+      - policycoreutils-python
+      - libsemanage-python
