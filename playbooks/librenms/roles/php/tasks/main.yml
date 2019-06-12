@@ -1,1 +1,39 @@
+- name: Add repository for php 7.3
+  yum:
+    state: present
+    name: https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 
+- name: Install php packages
+  yum:
+    state: present
+    enablerepo: remi-php72
+    name:
+      - php
+      - composer
+      - cronie
+      - fping 
+      - git
+      - httpd
+      - ImageMagick
+      - jwhois
+      - mariadb 
+      - mariadb-server 
+      - mtr
+      - MySQL-python
+      - net-snmp
+      - net-snmp-utils
+      - nmap
+      - php-fpm
+      - php-cli
+      - php-common
+      - php-curl
+      - php-gd
+      - php-mbstring
+      - php-mysqlnd
+      - php-process
+      - php-snmp
+      - php-xml
+      - php-zip
+      - python-memcached
+      - rrdtool
+    state: installed
