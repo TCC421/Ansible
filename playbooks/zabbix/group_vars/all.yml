@@ -1,1 +1,2 @@
-
+zabbix_password: zabbix
+mysql_root_password: password
