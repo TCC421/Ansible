@@ -1,1 +1,94 @@
+# Pre-req for Ansible MYSQL_DB and MYSQL_USer modules
+  - name: install python pip
+    yum:
+      state: present
+      name:
+        - python-setuptools
+        - python-pip
+        - python-devel
+        - mysql-devel
+        - libsemanage-python
+      
+  - name: Install the Python MySQLB module
+    pip:
+      name: pymysql
 
+# Install MariaDB
+  - name: Install MariaDB
+    yum:
+      state: present
+      name: mariadb-server
+      
+# Start and Enable MariaDB
+  - name: Start and enable mariadb
+    service:
+      name: mariadb
+      state: started
+      enabled: yes
+
+# Create Database and configure
+  - name: Create Zabbix Database
+    mysql_db:
+      name: zabbix
+      state: present
+      collation: utf8_bin
+      
+  - name: Create Zabbix user and grant permissions
+    mysql_user:
+      name: zabbix
+      password: "{{ zabbix_password }}"
+      priv: zabbix.*:ALL
+      host: localhost
+      state: present
+      
+  - name: check if root password for mariadb is set
+    shell: >
+      mysqladmin -u root status
+    changed_when: false
+    failed_when: false
+    register: root_pwd_check
+ 
+  - name: set mariadb root password for first time
+    mysql_user:
+      name: root
+      password: "{{ mysql_root_password }}"
+      host_all: yes
+      state: present
+    when: root_pwd_check.rc == 0
+ 
+  - name: flush privileges
+    command: 'mysql -ne "{{ item }}" -uroot -p"{{ mysql_root_password }}"'
+    with_items:
+      - FLUSH PRIVILEGES
+    changed_when: False
+ 
+  - name: Remove anonymous users
+    mysql_user:
+      name: ''
+      host_all: yes
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      state: absent
+ 
+  - name: Remove test database and access to it
+    mysql_db:
+      name: test
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      state: absent
+ 
+  - name: Disallow root login remotely
+    command: 'mysql -ne "{{ item }}" -uroot -p"{{ mysql_root_password }}"'
+    with_items:
+      - DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')
+    changed_when: False
+ 
+  - name: flush privileges
+    command: 'mysql -ne "{{ item }}" -uroot -p"{{ mysql_root_password }}"'
+    with_items:
+      - FLUSH PRIVILEGES
+    changed_when: False
+
+  - name: Import MYSQL
+      shell: zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p{{ zabbix_password }} zabbix
+      ignore_errors: true
