@@ -1,0 +1,9 @@
+# Playbook to install Zabbix
+
+- hosts: all
+  roles:
+    - common
+    - apache
+    - php
+    - mysql
+    - zabbix
