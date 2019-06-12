@@ -13,6 +13,11 @@
         - zabbix-web-mysql
         - zabbix-agent
         - zabbix-get
+ 
+# Import database
+  - name: Import MYSQL
+    shell: zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p{{ zabbix_password }} zabbix
+    ignore_errors: true
 
 # Configure Database for Zabbix in /etc/zabbix/zabbix_server.conf
   - name: Configure Zabbix conf file
