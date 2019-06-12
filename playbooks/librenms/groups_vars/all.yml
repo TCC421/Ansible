@@ -1,1 +1,3 @@
-
+librenms_password: librenms
+mysql_root_password: password
+community_string: public
