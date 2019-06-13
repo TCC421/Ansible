@@ -81,3 +81,7 @@
   service:
    name: logstash
    enabled: yes
+
+# Refresh firewall changes
+- name: firewalld reload
+  command: firewall-cmd --reload
