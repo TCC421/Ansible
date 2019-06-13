@@ -3,7 +3,8 @@
 - hosts: all
   roles:
     - common
+    - zabbix
     - apache
     - php
     - mysql
-    - zabbix
+    - server-config
