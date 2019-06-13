@@ -1,0 +1,26 @@
+- name: add repository
+  yum_repository:
+    name: elastic-beats
+    description: elastic-beats repo
+    baseurl: https://artifacts.elastic.co/packages/oss-6.x/yum
+    gpgcheck: 1
+    enabled: yes
+    autorefresh: 1
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: install filebeat
+  yum:
+    state: present
+    name:
+      - filebeat
+      
+- name: edit filebeat.yml
+
+- name: enable module(s)
+  command: filebeat modules enable {{ filebeat_module }}
+  
+- name: start and enable filebeat
+  service:
+    name: filebeat
+    enabled: yes
+    state: started
