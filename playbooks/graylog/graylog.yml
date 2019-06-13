@@ -3,7 +3,8 @@
 - hosts: all
   roles:
     - common
+    - graylog
     - java
     - mongodb
     - elasticsearch
-    - graylog
+    - server-config
