@@ -14,7 +14,7 @@
     regexp: 'network.host:'
     line: 'network.host: {{ elk_ip }}'
     
-- name:
+- name: update test
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
     regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
