@@ -1,13 +1,13 @@
 # Installing Elasticsearch
     
-# Install Elasticsearch
+# Install elasticsearch
 - name: Install Elasticsearch
   yum:
     state: latest
     name:
       - elasticsearch
       
-# Update Elasticsearch config file to only allow localhost connections
+# Update elasticsearch config file to only allow localhost connections
 - name: Updating the config file to restrict outside access
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
@@ -22,14 +22,9 @@
     immediate: yes
     state: enabled
 
-# Enable Elasticsearch
+# Enable and start elasticsearch
 - name: Enable Elasticsearch
   service:
     name: elasticsearch
     enabled: yes
-
-# Restart Elasticsearch
-- name: Restarting Elasticsearch
-  service:
-    name: elasticsearch
-    state: restarted
+    state: started
