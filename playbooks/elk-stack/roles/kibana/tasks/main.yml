@@ -34,3 +34,7 @@
    name: kibana
    enabled: yes
    state: started
+
+# Refresh firewall changes
+- name: firewalld reload
+  command: firewall-cmd --reload
