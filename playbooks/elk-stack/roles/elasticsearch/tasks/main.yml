@@ -14,7 +14,7 @@
     regexp: 'network.host:'
     line: 'network.host: {{ elk_ip }}'
 
-- name: Updating the config file to restrict outside access
+- name: Updating
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
     regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
