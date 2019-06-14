@@ -28,11 +28,15 @@
     port: 9200/tcp
     permanent: yes
     state: enabled
-    immediate: yes
 
-# Enable and start Elasticsearch
-- name: Enable and start Elasticsearch
+# Enable Elasticsearch
+- name: Enable Elasticsearch
   service:
     name: elasticsearch
     enabled: yes
-    state: started
+
+# Restart Elasticsearch
+- name: Restarting Elasticsearch
+  service:
+    name: elasticsearch
+    state: restarted

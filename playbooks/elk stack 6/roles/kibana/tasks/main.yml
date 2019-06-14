@@ -1,3 +1,13 @@
+# Installing Kibana
+
+# Add Elasticsearch repo
+#- name: Add Elasticsearch repo
+#  yum_repository:
+#    name: elasticsearch
+#    description: elasticsearch repo
+#    baseurl: https://artifacts.elastic.co/packages/6.x/yum
+#    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+   
 # Install Kibana
 - name: Install Kibana
   yum:
@@ -26,9 +36,14 @@
    state: enabled
    immediate: yes
 
-# Enable and start Kibana service
-- name: Enable and start Kibana service
+# Enable Kibana service
+- name: Enabling Kibana service
   service:
    name: kibana
    enabled: yes
+
+# Start Kibana service
+- name: Starting Kibana service
+  service:
+   name: kibana
    state: started
