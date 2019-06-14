@@ -6,7 +6,14 @@
    state: present
    name:
     - kibana
-   
+
+# Enable and start Kibana service
+- name: Enabling Kibana service
+  service:
+   name: kibana
+   enabled: yes
+   state: started
+
 # Update kibana config file to only accept local connections
 - name: Updating the config file to allow outside access
   lineinfile:
@@ -21,16 +28,16 @@
    regexp: '#elasticsearch.hosts:'
    line: 'elasticsearch.hosts: ["http://{{ elk_ip }}:9200"]'
 
-# Enable and start Kibana service
-- name: Enabling Kibana service
-  service:
-   name: kibana
-   enabled: yes
-   state: started
-
 # Open firewall
 - firewalld:
    port: 5601/tcp
    permanent: yes
    state: enabled
    immediate: yes
+
+# Restart Kibana service
+- name: Restart Kibana service
+  service:
+   name: kibana
+   enabled: yes
+   state: restarted
