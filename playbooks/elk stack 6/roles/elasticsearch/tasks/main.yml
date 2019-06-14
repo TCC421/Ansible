@@ -29,14 +29,9 @@
     permanent: yes
     state: enabled
 
-# Enable Elasticsearch
-- name: Enable Elasticsearch
+# Enable and start Elasticsearch
+- name: Enable and start Elasticsearch
   service:
     name: elasticsearch
     enabled: yes
-
-# Restart Elasticsearch
-- name: Restarting Elasticsearch
-  service:
-    name: elasticsearch
-    state: restarted
+    state: started
