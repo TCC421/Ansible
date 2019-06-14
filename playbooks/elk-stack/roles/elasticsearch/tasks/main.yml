@@ -14,6 +14,12 @@
     regexp: 'network.host:'
     line: 'network.host: {{ elk_ip }}'
 
+- name: Updating the config file to restrict outside access
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
+    line: 'cluster.initial_master_nodes: ["node-1"]'
+
 # Open firewall port 9200/tcp
 - name: open port 9200/tcp
   firewalld:
