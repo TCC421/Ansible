@@ -20,13 +20,6 @@
    path: /etc/kibana/kibana.yml
    regexp: '#elasticsearch.hosts:'
    line: 'elasticsearch.hosts: ["http://{{ elk_ip }}:9200"]'
-   
-# Open firewall
-- firewalld:
-   port: 5601/tcp
-   permanent: yes
-   state: enabled
-   immediate: yes
 
 # Enable and start Kibana service
 - name: Enabling Kibana service
@@ -34,3 +27,10 @@
    name: kibana
    enabled: yes
    state: started
+
+# Open firewall
+- firewalld:
+   port: 5601/tcp
+   permanent: yes
+   state: enabled
+   immediate: yes
