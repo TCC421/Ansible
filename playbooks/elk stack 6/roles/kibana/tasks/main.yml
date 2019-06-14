@@ -1,0 +1,49 @@
+# Installing Kibana
+
+# Add Elasticsearch repo
+#- name: Add Elasticsearch repo
+#  yum_repository:
+#    name: elasticsearch
+#    description: elasticsearch repo
+#    baseurl: https://artifacts.elastic.co/packages/6.x/yum
+#    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+   
+# Install Kibana
+- name: Install Kibana
+  yum:
+   state: present
+   name:
+    - kibana
+   
+# Update kibana config file to only accept local connections
+- name: Updating the config file to allow outside access
+  lineinfile:
+   path: /etc/kibana/kibana.yml
+   regexp: 'server.host:'
+   line: 'server.host: {{ elk_ip }}'
+   
+# Update kibana config file to only accept local connections
+- name: Updating the config file to allow outside access
+  lineinfile:
+   path: /etc/kibana/kibana.yml
+   regexp: '#elasticsearch.hosts:'
+   line: 'elasticsearch.hosts: ["http://{{ elk_ip }}:9200"]'
+   
+# Open firewall
+- firewalld:
+   port: 5601/tcp
+   permanent: yes
+   state: enabled
+   immediate: yes
+
+# Enable Kibana service
+- name: Enabling Kibana service
+  service:
+   name: kibana
+   enabled: yes
+
+# Start Kibana service
+- name: Starting Kibana service
+  service:
+   name: kibana
+   state: started
