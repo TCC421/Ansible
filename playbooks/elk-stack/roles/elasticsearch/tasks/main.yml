@@ -34,8 +34,8 @@
     immediate: yes
     state: enabled
     
-# Enable and start elasticsearch
-- name: Enable Elasticsearch
+# Restart elasticsearch
+- name: restart Elasticsearch
   service:
     name: elasticsearch
     enabled: yes
