@@ -28,14 +28,9 @@
    state: enabled
    immediate: yes
 
-# Enable Kibana service
+# Enable and start Kibana service
 - name: Enabling Kibana service
   service:
    name: kibana
    enabled: yes
-
-# Start Kibana service
-- name: Starting Kibana service
-  service:
-   name: kibana
    state: started
