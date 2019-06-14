@@ -9,5 +9,5 @@
   yum_repository:
     name: elasticsearch
     description: elasticsearch repo
-    baseurl: https://artifacts.elastic.co/packages/6.x/yum
+    baseurl: https://artifacts.elastic.co/packages/7.x/yum
     gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
