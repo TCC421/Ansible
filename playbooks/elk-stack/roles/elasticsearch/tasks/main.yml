@@ -18,7 +18,14 @@
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
     line: 'cluster.initial_master_nodes: ["node-1"]'
-    
+   
+# Enable and start elasticsearch
+- name: Enable Elasticsearch
+  service:
+    name: elasticsearch
+    enabled: yes
+    state: started
+
 # Open firewall port 9200/tcp
 - name: open port 9200/tcp
   firewalld:
@@ -26,10 +33,3 @@
     permanent: yes
     immediate: yes
     state: enabled
-
-# Enable and start elasticsearch
-- name: Enable Elasticsearch
-  service:
-    name: elasticsearch
-    enabled: yes
-    state: started
