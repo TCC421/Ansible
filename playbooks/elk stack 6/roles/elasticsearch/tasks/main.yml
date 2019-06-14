@@ -19,6 +19,7 @@
   firewalld:
     port: 9200/tcp
     permanent: yes
+    immediate: yes
     state: enabled
 
 # Enable Elasticsearch
