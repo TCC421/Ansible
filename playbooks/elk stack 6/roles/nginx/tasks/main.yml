@@ -49,18 +49,6 @@
   service:
    name: nginx
    state: started
-   
-# Install Pexpect to handle promts of the terminal
-#- name: Installing Python Pexpect
-#  yum:
-#   state: present
-#   name:
-#    - pexpect
-
-# Execute Python3.6 shell commnads
-#- name: Execute Python3.6 commands
-#  shell:
-#    scl enable rh-python36 -- yum install python-pip -- pip install pexpect
 
 # Writes the create user script in the temp directory
 - name: Create kibana admin user
