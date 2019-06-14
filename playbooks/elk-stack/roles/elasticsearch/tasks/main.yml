@@ -13,13 +13,13 @@
     path: /etc/elasticsearch/elasticsearch.yml
     regexp: 'network.host:'
     line: 'network.host: {{ elk_ip }}'
-
-- name: Updating
+    
+- name:
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
     regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
     line: 'cluster.initial_master_nodes: ["node-1"]'
-
+    
 # Open firewall port 9200/tcp
 - name: open port 9200/tcp
   firewalld:
