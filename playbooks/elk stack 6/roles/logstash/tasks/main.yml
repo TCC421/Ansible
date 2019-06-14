@@ -1,13 +1,5 @@
 # Installing Logstash
 
-# Add Logstash repo
-#- name: Add Elasticsearch repo
-#  yum_repository:
-#    name: elasticsearch
-#    description: elasticsearch repo
-#    baseurl: https://artifacts.elastic.co/packages/6.x/yum
-#    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
-
 # Installing Logstash
 - name: Install Logstash
   yum:
@@ -70,14 +62,9 @@
 - name: Install Logstash Service
   command: /usr/share/logstash/bin/system-install /etc/logstash/startup.options systemd
   
-# Start Logstash service
-- name: Start Logstash service
+# Start and enable Logstash service
+- name: Start and enable Logstash service
   service:
    name: logstash
+   enable: yes
    state: started
-
-# Enable Logstash service
-- name: Enable Logstash service
-  service:
-   name: logstash
-   enabled: yes
