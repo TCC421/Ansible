@@ -7,14 +7,14 @@
     name:
       - elasticsearch
       
-# Update elasticsearch config file to only allow localhost connections
-- name: Updating the config file to restrict outside access
+# Update elasticsearch config file
+- name: Allow outside access to elasticsearch
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
     regexp: 'network.host:'
     line: 'network.host: {{ elk_ip }}'
     
-- name: update test
+- name: Add requirement for elk stack 7
   lineinfile:
     path: /etc/elasticsearch/elasticsearch.yml
     line: 'cluster.initial_master_nodes: ["node-1"]'
