@@ -1,13 +1,5 @@
 # Installing Kibana
 
-# Add Elasticsearch repo
-#- name: Add Elasticsearch repo
-#  yum_repository:
-#    name: elasticsearch
-#    description: elasticsearch repo
-#    baseurl: https://artifacts.elastic.co/packages/6.x/yum
-#    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
-   
 # Install Kibana
 - name: Install Kibana
   yum:
