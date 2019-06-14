@@ -28,6 +28,7 @@
     port: 9200/tcp
     permanent: yes
     state: enabled
+    immediate: yes
 
 # Enable and start Elasticsearch
 - name: Enable and start Elasticsearch
