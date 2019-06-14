@@ -6,5 +6,5 @@
     - java
     - elasticsearch
     - kibana
-    - nginx
+    #- nginx
     #- logstash
