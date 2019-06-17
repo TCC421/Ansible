@@ -1,0 +1,46 @@
+- name: Install metricbeat
+  hosts: all
+  vars:
+    metricbeat_module: nginx
+    elk_ip: 192.168.1.73
+  tasks:
+  
+    - name: add repository
+      yum_repository:
+        name: elastic-beats
+        description: elastic-beats repo
+        baseurl: https://artifacts.elastic.co/packages/oss-6.x/yum
+        gpgcheck: 1
+        enabled: yes
+        autorefresh: 1
+        gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+    - name: install metricbeat
+      yum:
+        state: present
+        name:
+          - metricbeat
+
+    - name: setup kibana - edit metricbeat.yml
+        lineinfile:
+        path: /etc/metricbeat/metricbeat.yml
+        regexp: '#host: "localhost:5601"'
+        line: 'host: "{{ elk_ip }}:5601"'
+        
+     - name: setup elasticsearch - edit metricbeat.yml
+        lineinfile:
+        path: /etc/metricbeat/metricbeat.yml
+        regexp: 'hosts: "localhost:9200"'
+        line: 'hosts: "{{ elk_ip }}:9200"'
+    
+    - name: enable module(s)
+      command: metricbeat modules enable {{ metricbeat_module }}
+      
+    - name: run metricbeat setup
+      command: metricbeat setup
+
+    - name: start and enable metricbeat
+      service:
+        name: metricbeat
+        enabled: yes
+        state: started
