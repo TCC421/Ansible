@@ -12,7 +12,6 @@
         baseurl: https://artifacts.elastic.co/packages/oss-6.x/yum
         gpgcheck: 1
         enabled: yes
-        autorefresh: 1
         gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
     - name: install metricbeat
