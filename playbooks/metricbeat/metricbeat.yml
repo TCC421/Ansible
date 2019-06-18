@@ -30,8 +30,7 @@
     - name: setup elasticsearch - edit metricbeat.yml
       lineinfile:
         path: /etc/metricbeat/metricbeat.yml
-        regexp: 'hosts: ["localhost:9200"]'
-        insertafter: '# Array of hosts to connect to.'
+        regexp: '"hosts: ["localhost:9200"]"'
         line: '  hosts: ["{{ elk_ip }}:9200"]'
     
     - name: enable module(s)
