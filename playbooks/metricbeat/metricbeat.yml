@@ -1,7 +1,7 @@
 - name: Install metricbeat
   hosts: all
   vars:
-    metricbeat_module: nginx
+    metricbeat_module: docker
     elk_ip: 192.168.1.73
   tasks:
   
