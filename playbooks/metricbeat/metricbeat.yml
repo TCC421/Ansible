@@ -36,7 +36,11 @@
     - name: enable module(s)
       command: metricbeat modules enable {{ metricbeat_module }}
     
-    
+    - firewalld:
+        port: {{ elasticstack_port }}/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
     
     - name: run metricbeat setup
       command: metricbeat setup
