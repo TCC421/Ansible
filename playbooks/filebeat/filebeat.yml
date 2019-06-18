@@ -20,15 +20,15 @@
         state: present
         name:
           - filebeat
-
+ 
     - name: setup kibana - edit filebeat.yml
-        lineinfile:
+      lineinfile:
         path: /etc/filebeat/filebeat.yml
         regexp: '#host: "localhost:5601"'
         line: 'host: "{{ elk_ip }}:5601"'
         
     - name: setup elasticsearch - edit filebeat.yml
-       lineinfile:
+      lineinfile:
        path: /etc/filebeat/filebeat.yml
        regexp: 'hosts: "localhost:9200"'
        line: 'hosts: "{{ elk_ip }}:9200"'
