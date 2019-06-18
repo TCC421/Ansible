@@ -37,7 +37,7 @@
       command: metricbeat modules enable {{ metricbeat_module }}
     
     - firewalld:
-        port: {{ elasticstack_port }}/tcp
+        port: "{{ elasticstack_port }}"/tcp
         permanent: yes
         state: enabled
         immediate: yes
