@@ -1,4 +1,4 @@
-# Install MariaDB for Snipe-IT
+# Install MariaDB for phpIPAM
 
 - name: install python pip
   yum:
@@ -25,9 +25,9 @@
     state: started
     enabled: yes
 
-- name: create snipe-it database
+- name: create phpipam database
   mysql_db:
-    name: snipeit
+    name: phpipam
     state: present
     collation: utf8_bin
       
