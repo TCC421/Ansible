@@ -1,0 +1,40 @@
+- name: install apache
+  yum:
+    state: present
+    name:
+      - httpd
+      - mod_ssl
+      - libsemanage-python
+  
+- name: enable and start apache
+  systemd:
+    name: httpd
+    state: started
+    enabled: true
+    
+- name: firewall open http
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: yes
+
+- name: firewall open port 80
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: firewall open https
+  firewalld:
+    service: https
+    permanent: true
+    state: enabled
+    immediate: yes
+    
+- name: set SELinux boolean for apache
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes

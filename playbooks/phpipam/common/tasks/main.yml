@@ -1,0 +1,8 @@
+# Install Pre-reqs
+
+- name: install epel release
+  yum:
+    state: present
+    name:
+      - epel-release
+      - policycoreutils-python
