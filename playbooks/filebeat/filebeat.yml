@@ -29,8 +29,14 @@
     - name: setup elasticsearch - edit filebeat.yml
       lineinfile:
         path: /etc/filebeat/filebeat.yml
-         regexp: 'hosts: \["localhost:9200"\]'
-        line: 'hosts: "{{ elk_ip }}:9200"'
+        regexp: 'hosts: \["localhost:9200"\]'
+        line: '  hosts: "{{ elk_ip }}:9200"'
+    
+    - name: setup logstash - edit metricbeat.yml
+      lineinfile:
+        path: /etc/metricbeat/metricbeat.yml
+        regexp: 'hosts: \["localhost:5400"\]'
+        line: '  hosts: ["{{ elk_ip }}:5400"]'
     
     - name: enable module(s)
       command: filebeat modules enable {{ filebeat_module }}
