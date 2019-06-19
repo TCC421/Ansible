@@ -61,7 +61,14 @@
 # Install Logstash Service
 - name: Install Logstash Service
   command: /usr/share/logstash/bin/system-install /etc/logstash/startup.options systemd
-  
+
+# Open firewall
+- firewalld:
+   port: 5044/tcp
+   permanent: yes
+   state: enabled
+   immediate: yes
+
 # Start Logstash service
 - name: Start Logstash service
   service:
