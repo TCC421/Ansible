@@ -1,1 +1,11 @@
-
+  - name: Set selinux policy for directories
+      sefcontext:
+       target: '{{ item.target }}(/.*)?'
+       setype: "{{ item.setype }}"
+       state: present
+      register: filecontext
+      with_items:
+       - { target: '/var/www/html(/.*)?', setype: 'httpd_sys_content_t' }
+       - { target: '/var/www/html/app/admin/import-export/upload(/.*)?', setype: 'httpd_sys_rw_content_t' }
+       - { target: '/var/www/html/app/subnets/import-subnet/upload(/.*)?', setype: 'httpd_sys_rw_content_t' }
+       - { target: '/var/www/html/css/1.3.1/images/logo(/.*)?', setype: 'httpd_sys_rw_content_t' }
