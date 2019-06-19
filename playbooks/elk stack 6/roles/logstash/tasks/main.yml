@@ -59,17 +59,12 @@
    mode=0644
 
 # Install Logstash Service
-- name: Install Logstash Service
-  command: /usr/share/logstash/bin/system-install /etc/logstash/startup.options systemd
+#- name: Install Logstash Service
+#  command: /usr/share/logstash/bin/system-install /etc/logstash/startup.options systemd
   
 # Start Logstash service
 - name: Start Logstash service
   service:
    name: logstash
-   state: started
-
-# Enable Logstash service
-- name: Enable Logstash service
-  service:
-   name: logstash
    enabled: yes
+   state: started
