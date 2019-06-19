@@ -35,7 +35,7 @@
 - name: Configure Beats configuration file
   template:
    src=beats-input.conf.j2
-   dest=/etc/logstash/conf.d/02-beats-input.conf
+   dest=/etc/logstash/conf.d/10-beats-input.conf
    owner=root
    group=root
    mode=0644
@@ -44,7 +44,7 @@
 - name: Configure Syslog Filter
   template:
    src=syslog-filter.conf.j2
-   dest=/etc/logstash/conf.d/10-syslog-filter.conf
+   dest=/etc/logstash/conf.d/20-syslog-filter.conf
    owner=root
    group=root
    mode=0644
