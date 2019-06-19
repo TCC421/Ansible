@@ -25,6 +25,13 @@
     permanent: yes
     state: enabled
     immediate: yes
+    
+- name: firewall open port 443
+  firewalld:
+    port: 443/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
 
 - name: firewall open https
   firewalld:
