@@ -3,7 +3,6 @@
   vars:
     metricbeat_module: docker
     elk_ip: 192.168.1.73
-    elasticstack_port: 9200
   tasks:
   
     - name: add repository
@@ -35,12 +34,6 @@
     
     - name: enable module(s)
       command: metricbeat modules enable {{ metricbeat_module }}
-    
-    - firewalld:
-        port: "{{ elasticstack_port }}/tcp"
-        permanent: yes
-        state: enabled
-        immediate: yes
     
     - name: run metricbeat setup
       command: metricbeat setup
