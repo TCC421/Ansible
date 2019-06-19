@@ -1,0 +1,4 @@
+mysql_root_password: password
+db_password: phpipam
+db_database: phpipam
+db_username: phpipam
