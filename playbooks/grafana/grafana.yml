@@ -20,7 +20,7 @@
     
     - name: start and enable grafana
       service:
-        name: grafana
+        name: grafana-server
         enabled: yes
         state: started
         
