@@ -42,18 +42,23 @@
     
 - name: Update config.php file (1 of 3)
   lineinfile:
+    path: /var/www/html/config.php
     regexp: '$db['user'] = 'phpipam';'
-    
+    line: '$db['user'] = 'phpipam';'
+    state: present
     
 - name: Update config.php file (2 of 3)
   lineinfile:
+    path: /var/www/html/config.php
     regexp: '$db['pass'] = 'phpipamadmin';'
-    
+    line: '$db['pass'] = 'phpipamadmin';'
+    state: present
     
 - name: Update config.php file (3 of 3)
   lineinfile:
+    path: /var/www/html/config.php
     regexp: '$db['name'] = 'phpipam';'
-
-
+    line: '$db['name'] = 'phpipam';'
+    state: present
 
 
