@@ -27,7 +27,7 @@
 
 - name: create snipe-it database
   mysql_db:
-    name: snipeit
+    name: "{{ db_database }}"
     state: present
     collation: utf8_bin
       
@@ -35,7 +35,7 @@
   mysql_user:
     name: "{{ db_username }}"
     password: "{{ db_password }}"
-    priv: snipeit.*:ALL
+    priv: "{{ db_database }}".*:ALL
     host: localhost
     state: present
       
