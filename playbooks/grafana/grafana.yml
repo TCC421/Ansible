@@ -24,7 +24,7 @@
         enabled: yes
         state: started
         
-    - firewalld
+    - firewalld:
         port: 3000/tcp
         permanent: yes
         state: enabled
