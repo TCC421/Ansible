@@ -32,14 +32,9 @@
         state: enabled
         immediate: yes
         
-  # Start Nginx service
+  # Start and enable Nginx service
     - name: start nginx
       service:
         name: nginx
         state: started
-        
-  # Enable Nginx service
-    - name: enable nginx
-      service:
-        name: nginx
         enabled: yes
