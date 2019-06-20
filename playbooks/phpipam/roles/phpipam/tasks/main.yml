@@ -3,7 +3,15 @@
     repo: https://github.com/phpipam/phpipam.git
     dest: /var/www/html/
     force: yes
-  
+
+- name: change file and group permissions for public/uploads
+  file:
+    path: /var/www/html
+    owner: apache
+    group: apache
+    recurse: yes
+    mode: '0755'
+
 - name: Set selinux policy for directories
     sefcontext:
       target: '{{ item.target }}(/.*)?'
