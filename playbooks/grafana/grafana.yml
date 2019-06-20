@@ -1,1 +1,9 @@
-
+# Install Grafana
+- name: Install Grafana
+  hosts: all
+  tasks:
+  
+    - name:
+    - name:
+      yum:
+        name:
