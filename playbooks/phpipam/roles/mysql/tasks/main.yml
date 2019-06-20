@@ -27,7 +27,7 @@
 
 - name: create phpipam database
   mysql_db:
-    name: phpipam
+    name: "{{ db_database }}"
     state: present
     collation: utf8_bin
       
@@ -35,7 +35,7 @@
   mysql_user:
     name: "{{ db_username }}"
     password: "{{ db_password }}"
-    priv: phpipam.*:ALL
+    priv: {{ db_database }}.*:ALL
     host: localhost
     state: present
       
