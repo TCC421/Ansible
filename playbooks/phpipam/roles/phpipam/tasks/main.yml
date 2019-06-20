@@ -11,6 +11,16 @@
     group: apache
     recurse: yes
     mode: '0755'
+    
+- name: chmod 0644
+  command: find . -type f -exec chmod 0644 {} \;
+  args:
+    chdir: /var/www/html/
+
+- name: chmod 0755
+  command: find . -type d -exec chmod 0755 {} \;
+  args:
+    chdir: /var/www/html/
 
 - name: Set selinux policy for directories
     sefcontext:
