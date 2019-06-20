@@ -83,3 +83,8 @@
     - checkmodule -M -m -o /opt/http_fping.mod /opt/http_fping.tt
     - semodule_package -o /opt/http_fping.pp -m /opt/http_fping.mod
     - semodule -i /opt/http_fping.pp
+
+- name: Restart httpd
+  service:
+    name: httpd
+    state: restarted
