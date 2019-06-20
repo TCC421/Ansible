@@ -31,11 +31,11 @@
     state: present
     collation: utf8_bin
       
-- name: create snipeit user and grant permissions
+- name: create phpipam user and grant permissions
   mysql_user:
     name: "{{ db_username }}"
     password: "{{ db_password }}"
-    priv: snipeit.*:ALL
+    priv: phpipam.*:ALL
     host: localhost
     state: present
       
