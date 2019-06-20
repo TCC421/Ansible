@@ -17,3 +17,14 @@
         state: present
         name:
           - grafana
+    
+    - name: start and enable grafana
+      service:
+        name: grafana
+        enabled: yes
+        state: started
+        
+    - firewalld
+        port: 3000/tcp
+        immediate: yes
+   
