@@ -9,16 +9,14 @@
       enablerepo: remi-php73
       name:
         - php
-        - php-openssl
+        - php-cli
+        - php-common
         - php-pdo
         - php-mbstring
-        - php-tokenizer
-        - php-curl
         - php-mysql
         - php-ldap
-        - php-zip
-        - php-fileinfo
         - php-gd
-        - php-dom
         - php-mcrypt
-        - php-bcmath
+        - php-pear
+        - php-snmp
+        - php-xml
