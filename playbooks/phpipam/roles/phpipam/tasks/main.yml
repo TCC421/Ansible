@@ -1,4 +1,8 @@
-- name: Download phpipam installation files
+- name: clone phpipam repo      
+  git:
+    repo: https://github.com/phpipam/phpipam.git
+    dest: /var/www/html/
+    force: yes
   
 - name: Set selinux policy for directories
     sefcontext:
