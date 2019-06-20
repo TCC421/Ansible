@@ -20,3 +20,4 @@
         - php-pear
         - php-snmp
         - php-xml
+        - php-gmp
