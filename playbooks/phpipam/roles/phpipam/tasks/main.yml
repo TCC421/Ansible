@@ -57,7 +57,7 @@
 - name: Update config.php file (3 of 3)
   lineinfile:
     path: /var/www/html/config.php
-    regexp: '.db..name..= .phpipam.;'
+    regexp: '.db..name.. = .phpipam.;'
     line: "$db['name'] = '{{ db_database }}';"
     state: present
 
