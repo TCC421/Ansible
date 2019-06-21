@@ -2,8 +2,8 @@
 
 - hosts: all
   roles:
-#    - common
-#    - apache
-#    - mysql
-#    - php
+    - common
+    - apache
+    - mysql
+    - php
     - phpipam
