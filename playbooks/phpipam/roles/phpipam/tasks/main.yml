@@ -44,7 +44,7 @@
   lineinfile:
     path: /var/www/html/config.php
     regexp: |-
-      '$db['user'] = 'phpipam';'
+      $db['user'] = 'phpipam';
     line: "$db['user'] = '{{ db_username }}';"
     state: present
     
@@ -52,7 +52,7 @@
   lineinfile:
     path: /var/www/html/config.php
     regexp: |-
-      '$db['pass'] = 'phpipamadmin';'
+      $db['pass'] = 'phpipamadmin';
     line: "$db['pass'] = '{{ db_password }}';"
     state: present
     
@@ -60,7 +60,7 @@
   lineinfile:
     path: /var/www/html/config.php
     regexp: |-
-      '$db['name'] = 'phpipam';'
+      $db['name'] = 'phpipam';
     line: "$db['name'] = '{{ db_database }}';"
     state: present
 
