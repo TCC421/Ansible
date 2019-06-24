@@ -1,1 +1,18 @@
-
+- name: Install Gitlab
+  hosts: all
+  tasks:
+    
+    - name: install pre-reqs
+      yum:
+        state: present
+        name:
+          - policycoreutils-python
+          - openssh-server
+          - postfix
+          
+    - firewalld:
+      port: 80/tcp
+      
+    - name:
+    
+    - name: 
