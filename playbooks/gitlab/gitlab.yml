@@ -9,10 +9,33 @@
           - policycoreutils-python
           - openssh-server
           - postfix
-          
+    
+    - name: Open service HTTP
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+        
+    - name: Open service HTTPS
+      firewalld:
+        service: https
+        permanent: true
+        state: enabled
+        immediate: yes    
+    
     - firewalld:
-      port: 80/tcp
-      
+        port: 80/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
+    
+    - firewalld:
+        port: 443/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
+        
     - name:
     
     - name: 
