@@ -36,6 +36,11 @@
         state: enabled
         immediate: yes
         
-    - name:
+    - name: add repository
+      command: curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
     
-    - name: 
+    - name: install gitlab
+      yum:
+        state: present
+        name:
+          - gitlab-ce
