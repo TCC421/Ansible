@@ -1,4 +1,4 @@
-# Not completed or tested
+# Not TESTED
 
 - name: install katello agent
   hosts: all
@@ -49,4 +49,10 @@
         enabled: yes
         state: started
     
-    - name: remove repos
+    - name: remove centos repos
+        path: /etc/yum.repos.d/CentOS*
+        state: absent
+    
+    - name: remove epel repos
+        path: /etc/yum.repos.d/epel*
+        state: absent
