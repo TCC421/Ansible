@@ -11,7 +11,7 @@
     
   tasks:
     
-    - name: setup kibana - edit metricbeat.yml
+    - name: edit hosts file
       lineinfile:
         path: /etc/hosts
         line: '{{ katello_ip }} {{ katello_hostname }}'
