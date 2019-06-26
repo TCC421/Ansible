@@ -49,10 +49,14 @@
         enabled: yes
         state: started
     
-    - name: remove centos repos
+    - name: remove centos repo
         path: /etc/yum.repos.d/CentOS*
         state: absent
     
-    - name: remove epel repos
+    - name: remove epel repo
         path: /etc/yum.repos.d/epel*
+        state: absent
+
+    - name: remove katello repo
+        pat: /etc/yum.repos.d/foreman*
         state: absent
