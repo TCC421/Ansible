@@ -1,0 +1,47 @@
+# Not completed or tested
+
+- name: install katello agent
+  hosts: all
+  vars:
+    org: Default_Organization
+    key: CentOS_7_Non_Prod_Key
+    katello_ip: 192.168.1.8
+    katello_hostname: foreman.anura.local
+    
+  tasks:
+    
+    - name: edit hosts file
+    - name: install subscription-manager
+      yum:
+        state: present
+        name:
+          - subscription-manager
+          
+    - name: download and install ca-consumer package
+      yum:
+        state: present
+        name: http://{{ katello_ip }}/pub/katello-ca-consumer-{{katello_hostname}}-1.0-1.noarch.rpm
+        
+    - name: register the client with katello
+      command: subscription-manager register --org="{{ org }}" --activationkey="{{ key }}"
+    
+    - name: install katello repo
+      yum:
+        state: present
+        name: https://yum.theforeman.org/client/1.22/el7/x86_64/foreman-client-release.rpm
+    
+    - name: install katello-agent
+      yum:
+        state: present
+        name:
+          - katello-agent
+          - katello-host-tools
+          - katello-host-tools-tracer
+          
+    - name: start and enable katello
+      service:
+        name: goferd
+        enabled: yes
+        state: started
+    
+    - name: remove repos
