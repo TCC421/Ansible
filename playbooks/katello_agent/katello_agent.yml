@@ -7,10 +7,15 @@
     key: CentOS_7_Non_Prod_Key
     katello_ip: 192.168.1.8
     katello_hostname: foreman.anura.local
+    katello_latest_repo: https://yum.theforeman.org/client/1.22/el7/x86_64/foreman-client-release.rpm
     
   tasks:
     
-    - name: edit hosts file
+    - name: setup kibana - edit metricbeat.yml
+      lineinfile:
+        path: /etc/hosts
+        line: '{{ katello_ip }} {{ katello_hostname }}'
+    
     - name: install subscription-manager
       yum:
         state: present
@@ -28,7 +33,7 @@
     - name: install katello repo
       yum:
         state: present
-        name: https://yum.theforeman.org/client/1.22/el7/x86_64/foreman-client-release.rpm
+        name: {{ katello_latest_repo }}
     
     - name: install katello-agent
       yum:
