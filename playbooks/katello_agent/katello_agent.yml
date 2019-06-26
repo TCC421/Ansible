@@ -33,7 +33,7 @@
     - name: install katello repo
       yum:
         state: present
-        name: {{ katello_latest_repo }}
+        name: "{{ katello_latest_repo }}"
     
     - name: install katello-agent
       yum:
