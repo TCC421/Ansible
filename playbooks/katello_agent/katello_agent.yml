@@ -50,13 +50,16 @@
         state: started
     
     - name: remove centos repo
+      file:  
         path: /etc/yum.repos.d/CentOS*
         state: absent
     
     - name: remove epel repo
+      file:
         path: /etc/yum.repos.d/epel*
         state: absent
 
     - name: remove katello repo
+      file:  
         pat: /etc/yum.repos.d/foreman*
         state: absent
