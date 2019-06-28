@@ -3,7 +3,7 @@
 - name: install katello agent
   hosts: all
   vars:
-    org: Anura
+    org: Default Organization
     key: CentOS_7_Non_Prod_Key
     katello_ip: 192.168.1.8
     katello_hostname: foreman.anura.local
