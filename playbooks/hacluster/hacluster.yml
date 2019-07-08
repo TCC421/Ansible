@@ -18,7 +18,7 @@
         state: present
         name: nginx
         
-    - name: install pacemaker, corosync, pcsd
+    - name: install pacemaker, corosync, pcs
       yum:
         state: present
         name:
