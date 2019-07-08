@@ -24,7 +24,7 @@
         name:
           - pacemaker
           - corosync
-          - pcsd
+          - pcs
           
     - name: start and enable pacemaker
       service:
