@@ -67,7 +67,7 @@
       when: inventory_hostname == {{ node01 }}
       expect: 
         command: pcs cluster auth {{ node01 }} {{ node02 }}
-        responses: {{ hacluster_pw }}
+        responses: "{{ hacluster_pw }}"
         
     - name: setup cluster
       when: inventory_hostname == {{ node01 }}
