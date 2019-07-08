@@ -30,15 +30,13 @@
       service:
         name: pacemaker
         enabled: yes
-        state: started
 
-    - name: start and enable pacemaker
+    - name: start and enable corosync
       service:
         name: corosync
         enabled: yes
-        state: started
         
-    - name: start and enable pacemaker
+    - name: start and enable pcs
       service:
         name: pcsd
         enabled: yes
