@@ -1,0 +1,33 @@
+- name: Install pacemaker, coronsync etc... 
+  vars:
+    floating_ip: 192.168.1.24
+    hacluster_pw: test123
+    node01: node01
+    node02: node02
+  hosts: all
+  tasks:
+  
+    - name: install epel
+      yum:
+        state: present
+        name: epel-release
+        
+    - name: install nginx
+      yum:
+        state: present
+        name: nginx
+        
+    - name: install pacemaker, corosync, pcsd
+      yum:
+        state: present
+        name:
+          - pacemaker
+          - corosync
+          - pcsd
+          
+    - name: start and enable pacemaker
+      service:
+        name: pacemaker
+        enabled: yes
+        immediate: yes
+        state: started
