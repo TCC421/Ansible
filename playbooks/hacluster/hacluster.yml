@@ -88,3 +88,7 @@
     - name: ignore the quorum policy
       when: inventory_hostname == {{ node01 }}
       command: pcs property set no-quorum-policy=ignore
+
+    - name: add floating ip address
+      when: inventory_hostname == {{ node01 }}
+      command: pcs resource create v_ip ocf:heartbeat:IPaddr2 ip={{ floating_ip }} cidr_netmask=32 op monitor interval=20s
