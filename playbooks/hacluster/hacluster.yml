@@ -48,3 +48,34 @@
         port: 80/tcp
         immediate: yes
         state: enabled
+        permanent: yes
+    
+    - name: open firewall high availability
+      firewalld:
+        service: high-availability
+        immediate: yes
+        state: enabled
+        permanent: yes
+
+    - name: create password for hacluster
+      user:
+        name: hacluster
+        password: {{ hacluster_pw }}
+        
+    - name: create cluster
+      when: inventory_hostname == {{ node01 }}
+      expect: 
+        command: pcs cluster auth {{ node01 }} {{ node02 }}
+        responses: {{ hacluster_pw }}
+        
+    - name: setup cluster
+      when: inventory_hostname == {{ node01 }}
+      
+    - name: enable cluster
+      when: inventory_hostname == {{ node01 }}
+    
+    - name: disable STONITH
+      when: inventory_hostname == {{ node01 }}
+      
+    - name: ignore the quorum policy
+      when: inventory_hostname == {{ node01 }}
