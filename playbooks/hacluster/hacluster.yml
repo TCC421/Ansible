@@ -61,7 +61,7 @@
     - name: create password for hacluster
       user:
         name: hacluster
-        password: {{ hacluster_pw }}
+        password: "{{ hacluster_pw }}"
         
     - name: create cluster
       when: inventory_hostname == {{ node01 }}
