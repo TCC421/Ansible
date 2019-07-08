@@ -1,6 +1,7 @@
 - name: Install pacemaker, coronsync etc... 
   vars:
     floating_ip: 192.168.1.24
+    hacluster_name: testcluster
     hacluster_pw: test123
     node01: node01
     node02: node02
@@ -70,12 +71,20 @@
         
     - name: setup cluster
       when: inventory_hostname == {{ node01 }}
+      command: pcs cluster setup -name {{ hacluster_name}} {{ node01 }} {{ node02 }}
       
     - name: enable cluster
       when: inventory_hostname == {{ node01 }}
+      command: pcs cluster enable –all
+      
+    - name: start cluster
+      when: inventory_hostname == {{ node01 }}
+      command: pcs cluster start –all
     
     - name: disable STONITH
       when: inventory_hostname == {{ node01 }}
+      command: pcs property set stonith-enabled=false
       
     - name: ignore the quorum policy
       when: inventory_hostname == {{ node01 }}
+      command: pcs property set no-quorum-policy=ignore
