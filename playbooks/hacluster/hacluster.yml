@@ -59,15 +59,24 @@
   hosts: 192.168.1.25
   tasks:
   
-    - name: create cluster
-      expect: 
-        command: pcs cluster auth {{ node01 }} {{ node02 }}
-        responses:
-          - 'Username': hacluster
-          - 'Password': "{{ hacluster_pw }}"
+    - name: install expect
+      yum:
+        state: present
+        name: expect
         
+    - name: create cluster
+      shell:
+        pcs cluster auth {{ node01 }} {{ node02 }}
+        expect "Username:"
+        send "hacluster\n"
+          
+        expect "Password:"
+        send "{{ hacluster_pw }}\n"
+      args:
+        executable: /usr/bin/expect
+       
     - name: setup cluster
-      command: pcs cluster setup -name {{ hacluster_name}} {{ node01 }} {{ node02 }}
+      shell: pcs cluster setup -name {{ hacluster_name}} {{ node01 }} {{ node02 }}
       
     - name: enable cluster
       command: pcs cluster enable –all
