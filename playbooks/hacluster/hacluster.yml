@@ -62,31 +62,31 @@
         password: "{{ hacluster_pw }}"
         
     - name: create cluster
-      when: ansible_hostname == "{{ node01 }}"
+      when: ansible_hostname = "{{ node01 }}"
       expect: 
         command: pcs cluster auth {{ node01 }} {{ node02 }}
         responses: "{{ hacluster_pw }}"
         
     - name: setup cluster
-      when: ansible_hostname == "{{ node01 }}"
+      when: ansible_hostname = "{{ node01 }}"
       command: pcs cluster setup -name {{ hacluster_name}} {{ node01 }} {{ node02 }}
       
     - name: enable cluster
-      when: ansible_hostname == "{{ node01 }}"
+      when: ansible_hostname = "{{ node01 }}"
       command: pcs cluster enable –all
       
     - name: start cluster
-      when: ansible_hostname == "{{ node01 }}"
+      when: ansible_hostname = "{{ node01 }}"
       command: pcs cluster start –all
     
     - name: disable STONITH
-      when: ansible_hostname == "{{ node01 }}"
+      when: ansible_hostname = "{{ node01 }}"
       command: pcs property set stonith-enabled=false
       
     - name: ignore the quorum policy
-      when: inventory_hostname == "{{ node01 }}"
+      when: inventory_hostname = "{{ node01 }}"
       command: pcs property set no-quorum-policy=ignore
 
     - name: add floating ip address
-      when: inventory_hostname == "{{ node01 }}"
+      when: inventory_hostname = "{{ node01 }}"
       command: pcs resource create v_ip ocf:heartbeat:IPaddr2 ip={{ floating_ip }} cidr_netmask=32 op monitor interval=20s
