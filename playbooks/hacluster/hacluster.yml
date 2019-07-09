@@ -62,7 +62,9 @@
     - name: create cluster
       expect: 
         command: pcs cluster auth {{ node01 }} {{ node02 }}
-        responses: "{{ hacluster_pw }}"
+        responses:
+          - Username: hacluster
+          - Password: "{{ hacluster_pw }}"
         
     - name: setup cluster
       command: pcs cluster setup -name {{ hacluster_name}} {{ node01 }} {{ node02 }}
