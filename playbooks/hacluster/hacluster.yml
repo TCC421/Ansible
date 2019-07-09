@@ -54,7 +54,7 @@
 
     - name: create cluster
       shell:
-        pcs cluster auth {{ groups[all] }}
+        pcs cluster auth groups['all']
         expect "Username:"
         send "hacluster\n"
 
