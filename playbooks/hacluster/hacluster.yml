@@ -1,4 +1,4 @@
-- name: Install pacemaker, coronsync etc... 
+- name: install pacemaker, coronsync and pcs
   hosts: all
   tasks:
   
@@ -6,11 +6,6 @@
       yum:
         state: present
         name: epel-release
-        
-    - name: install nginx
-      yum:
-        state: present
-        name: nginx
         
     - name: install pacemaker, corosync, pcs
       yum:
@@ -35,13 +30,6 @@
         name: pcsd
         enabled: yes
         state: started
-        
-    - name: open firewall port 80
-      firewalld:
-        port: 80/tcp
-        immediate: yes
-        state: enabled
-        permanent: yes
     
     - name: open firewall high availability
       firewalld:
