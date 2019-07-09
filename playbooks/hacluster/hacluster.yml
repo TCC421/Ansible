@@ -38,10 +38,10 @@
         state: enabled
         permanent: yes
 
-  #  - name: create password for hacluster
-  #    user:
-  #      name: hacluster
-  #      password: "{{ hacluster_pw }}"
+    - name: create password for hacluster
+      user:
+        name: hacluster
+        password: "{{ hacluster_pw }}"
 
 - name: run on master only 
   hosts: master
