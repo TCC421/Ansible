@@ -76,13 +76,13 @@
         executable: /usr/bin/expect
        
     - name: setup cluster
-      shell: pcs cluster setup -name {{ hacluster_name}} {{ node01 }} {{ node02 }}
+      shell: pcs cluster setup --name {{ hacluster_name}} {{ node01 }} {{ node02 }}
       
     - name: enable cluster
-      command: pcs cluster enable –all
+      command: pcs cluster enable -–all
       
     - name: start cluster
-      command: pcs cluster start –all
+      command: pcs cluster start -–all
     
     - name: disable STONITH
       command: pcs property set stonith-enabled=false
