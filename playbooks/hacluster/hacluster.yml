@@ -3,8 +3,6 @@
     floating_ip: 192.168.1.24
     hacluster_name: testcluster
     hacluster_pw: test123
-    node01: node01
-    node02: node02
   hosts: all
   tasks:
   
