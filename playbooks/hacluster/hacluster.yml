@@ -54,7 +54,7 @@
 
     - name: create cluster
       shell:
-        pcs cluster auth {{ node01 }} {{ node02 }}
+        pcs cluster auth {{ groups['ALL'] }}
         expect "Username:"
         send "hacluster\n"
 
@@ -64,7 +64,7 @@
         executable: /usr/bin/expect
 
     - name: setup cluster
-      shell: pcs cluster setup --name {{ hacluster_name}} {{ node01 }} {{ node02 }}
+      shell: pcs cluster setup --name {{ hacluster_name}} {{ groups['ALL'] }}
 
     - name: start cluster
       command: pcs cluster start -–all
