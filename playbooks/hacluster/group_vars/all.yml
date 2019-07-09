@@ -1,5 +1,5 @@
 node01: 192.168.1.25
 node02: 192.168.1.26
-hacluster_pw: test123
+hacluster_pw: testingfarmer
 hacluster_name: testcluster
 floating_ip: 192.168.1.24
