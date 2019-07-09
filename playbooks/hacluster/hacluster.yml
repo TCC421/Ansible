@@ -64,7 +64,7 @@
         executable: /usr/bin/expect
 
     - name: setup cluster
-      shell: pcs cluster setup --name {{ hacluster_name}} {{ groups['all'] | to_json}}
+      shell: pcs cluster setup --name {{ hacluster_name}} {{ groups.all | to_json}}
 
     - name: start cluster
       command: pcs cluster start -–all
