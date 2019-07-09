@@ -1,8 +1,4 @@
 - name: Install pacemaker, coronsync etc... 
-  vars:
-    floating_ip: 192.168.1.24
-    hacluster_name: testcluster
-    hacluster_pw: test123
   hosts: all
   tasks:
   
@@ -61,11 +57,6 @@
 
 - name: run on master only 
   hosts: 192.168.1.25
-  vars:  
-    node01: 192.168.1.25
-    node02: 192.168.1.26
-    hacluster_pw: test123
-    hacluster_name: testcluster
   tasks:
   
     - name: create cluster
