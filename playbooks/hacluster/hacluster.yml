@@ -60,7 +60,8 @@
       user:
         name: hacluster
         password: "{{ hacluster_pw }}"
-  
+
+- name: run on master only 
   hosts: master
   tasks:
   
