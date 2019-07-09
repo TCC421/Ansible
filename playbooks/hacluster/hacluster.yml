@@ -10,75 +10,75 @@
       hosts: all
       tasks:
   
-      - name: install epel
-        yum:
-          state: present
-          name: epel-release
+        - name: install epel
+          yum:
+            state: present
+            name: epel-release
 
-      - name: install pacemaker, corosync, pcs
-        yum:
-          state: present
-          name:
-            - pacemaker
-            - corosync
-            - pcs
+        - name: install pacemaker, corosync, pcs
+          yum:
+            state: present
+            name:
+              - pacemaker
+              - corosync
+              - pcs
 
-      - name: start and enable pacemaker
-        service:
-          name: pacemaker
-          enabled: yes
+        - name: start and enable pacemaker
+          service:
+            name: pacemaker
+            enabled: yes
 
-      - name: start and enable corosync
-        service:
-          name: corosync
-          enabled: yes
+        - name: start and enable corosync
+          service:
+            name: corosync
+            enabled: yes
 
-      - name: start and enable pcs
-        service:
-          name: pcsd
-          enabled: yes
-          state: started
+        - name: start and enable pcs
+          service:
+            name: pcsd
+            enabled: yes
+            state: started
 
-      - name: open firewall high availability
-        firewalld:
-          service: high-availability
-          immediate: yes
-          state: enabled
-          permanent: yes
+        - name: open firewall high availability
+          firewalld:
+            service: high-availability
+            immediate: yes
+            state: enabled
+            permanent: yes
 
-      - name: create password for hacluster
-        user:
-          name: hacluster
-          password: "{{ hacluster_pw }}"
+        - name: create password for hacluster
+          user:
+            name: hacluster
+            password: "{{ hacluster_pw }}"
 
     - name: run on master only 
       hosts: master
       tasks:
 
-      - name: install expect
-        yum:
-          state: present
-          name: expect
+        - name: install expect
+          yum:
+            state: present
+            name: expect
 
-      - name: create cluster
-        shell:
-          pcs cluster auth {{ node01 }} {{ node02 }}
-          expect "Username:"
-          send "hacluster\n"
+        - name: create cluster
+          shell:
+            pcs cluster auth {{ node01 }} {{ node02 }}
+            expect "Username:"
+            send "hacluster\n"
 
-          expect "Password:"
-          send "{{ hacluster_pw }}\n"
-        args:
-          executable: /usr/bin/expect
+            expect "Password:"
+            send "{{ hacluster_pw }}\n"
+          args:
+            executable: /usr/bin/expect
 
-      - name: setup cluster
-        shell: pcs cluster setup --name {{ hacluster_name}} {{ node01 }} {{ node02 }}
+        - name: setup cluster
+          shell: pcs cluster setup --name {{ hacluster_name}} {{ node01 }} {{ node02 }}
 
-      - name: start cluster
-        command: pcs cluster start -–all
+        - name: start cluster
+          command: pcs cluster start -–all
 
-      - name: disable STONITH
-        command: pcs property set stonith-enabled=false
+        - name: disable STONITH
+          command: pcs property set stonith-enabled=false
 
-      - name: ignore the quorum policy
-        command: pcs property set no-quorum-policy=ignore
+        - name: ignore the quorum policy
+          command: pcs property set no-quorum-policy=ignore
