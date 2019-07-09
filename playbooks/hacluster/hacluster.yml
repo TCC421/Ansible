@@ -6,8 +6,7 @@
       192.168.1.26
   tasks:
     
-    - name: install on all
-      hosts: all
+    - hosts: all
       tasks:
   
         - name: install epel
