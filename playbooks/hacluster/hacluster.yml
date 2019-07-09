@@ -6,11 +6,14 @@
       192.168.1.26
   tasks:
     
-    - name: install epel
+    - name: test
       hosts: all
-      yum:
-        state: present
-        name: epel-release
+      tasks:
+        
+        - name: install epel
+          yum:
+            state: present
+            name: epel-release
 
     - name: install pacemaker, corosync, pcs
       hosts: all
