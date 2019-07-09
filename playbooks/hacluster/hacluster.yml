@@ -1,22 +1,13 @@
 - name: install pacemaker, coronsync and pcs
-  hosts:
-    master:
-      192.168.1.25
-    slaves:
-      192.168.1.26
+  hosts: all
   tasks:
-    
-    - name: test
-      hosts: all
-      tasks:
-        
-        - name: install epel
-          yum:
-            state: present
-            name: epel-release
-
+  
+    - name: install epel
+      yum:
+        state: present
+        name: epel-release
+           
     - name: install pacemaker, corosync, pcs
-      hosts: all
       yum:
         state: present
         name:
@@ -25,26 +16,22 @@
           - pcs
 
     - name: start and enable pacemaker
-      hosts: all
       service:
         name: pacemaker
         enabled: yes
 
     - name: start and enable corosync
-      hosts: all
       service:
         name: corosync
         enabled: yes
 
     - name: start and enable pcs
-      hosts: all
       service:
         name: pcsd
         enabled: yes
         state: started
 
     - name: open firewall high availability
-      hosts: all
       firewalld:
         service: high-availability
         immediate: yes
@@ -52,19 +39,20 @@
         permanent: yes
 
     - name: create password for hacluster
-      hosts: all
       user:
         name: hacluster
         password: "{{ hacluster_pw }}"
 
+- name: install only on master
+  hosts: master
+  tasks:
+
     - name: install expect
-      hosts: master
       yum:
         state: present
         name: expect
 
     - name: create cluster
-      hosts: master
       shell:
         pcs cluster auth {{ node01 }} {{ node02 }}
         expect "Username:"
@@ -76,17 +64,13 @@
         executable: /usr/bin/expect
 
     - name: setup cluster
-      hosts: master
       shell: pcs cluster setup --name {{ hacluster_name}} {{ node01 }} {{ node02 }}
 
     - name: start cluster
-      hosts: master
       command: pcs cluster start -–all
 
     - name: disable STONITH
-      hosts: master
       command: pcs property set stonith-enabled=false
 
     - name: ignore the quorum policy
-      hosts: master
       command: pcs property set no-quorum-policy=ignore
