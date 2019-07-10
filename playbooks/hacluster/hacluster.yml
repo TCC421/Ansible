@@ -93,7 +93,7 @@
       shell:
         spawn bash /tmp/hacluster
         
-        expect "Username:"
+        expect "Username: "
         send "hacluster\n"
         
         expect "Password:"
