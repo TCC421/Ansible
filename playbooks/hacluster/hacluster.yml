@@ -1,3 +1,5 @@
+# Create a cluster for nginx
+
 - name: install pacemaker, coronsync and pcs
   hosts: all
   tasks:
@@ -14,6 +16,24 @@
           - pacemaker
           - corosync
           - pcs
+          
+    - name: install nginx
+      yum:
+        state: present
+        name: nginx
+    
+    - name: start and enable nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+    
+    - name: open port 80
+      firewalld:
+        port: 80/tcp
+        immediate: yes
+        permanent: yes
+        state: enabled
     
     - name: create corosync.conf
       copy:
@@ -82,3 +102,9 @@
 
     - name: ignore the quorum policy
       command: pcs property set no-quorum-policy=ignore
+      
+    - name: add floating ip address
+      command: pcs resource create v_ip ocf:heartbeat:IPaddr2 ip={{ floating_ip }} cidr_netmask=32 op monitor interval=20s
+      
+    - name: create nginx hearbeat monitor
+      command: pcs resource create webserver ocf:heartbeat:nginx configfile=/etc/nginx/nginx.conf op monitor timeout="5s" interval="5s"
