@@ -83,19 +83,19 @@
       shell: pcs cluster setup --name {{ hacluster_name}} {{ groups.all | join(" ") }}
 
     - name: enable cluster
-      command: pcs cluster enable -–all
+      shell: pcs cluster enable -–all
       
     - name: start cluster
-      command: pcs cluster start -–all
+      shell: pcs cluster start -–all
 
     - name: disable STONITH
-      command: pcs property set stonith-enabled=false
+      shell: pcs property set stonith-enabled=false
 
     - name: ignore the quorum policy
-      command: pcs property set no-quorum-policy=ignore
+      shell: pcs property set no-quorum-policy=ignore
       
     - name: add floating ip address
-      command: pcs resource create v_ip ocf:heartbeat:IPaddr2 ip={{ floating_ip }} cidr_netmask=32 op monitor interval=20s
+      shell: pcs resource create v_ip ocf:heartbeat:IPaddr2 ip={{ floating_ip }} cidr_netmask=32 op monitor interval=20s
       
     - name: create nginx hearbeat monitor
-      command: pcs resource create webserver ocf:heartbeat:nginx configfile=/etc/nginx/nginx.conf op monitor timeout="5s" interval="5s"
+      shell: pcs resource create webserver ocf:heartbeat:nginx configfile=/etc/nginx/nginx.conf op monitor timeout="5s" interval="5s"
