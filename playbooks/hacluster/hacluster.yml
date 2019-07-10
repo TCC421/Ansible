@@ -14,16 +14,24 @@
           - pacemaker
           - corosync
           - pcs
-
+    
+    - name: create corosync.conf
+      copy:
+        src: /etc/corosync/corosync.conf.example
+        dest: /etc/corosync/corosync.conf
+        remote_src: yes
+      
     - name: start and enable pacemaker
       service:
         name: pacemaker
         enabled: yes
+        state: started
 
     - name: start and enable corosync
       service:
         name: corosync
         enabled: yes
+        state: started
 
     - name: start and enable pcs
       service:
