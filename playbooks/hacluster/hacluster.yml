@@ -97,14 +97,13 @@
         expect "Username{{':'}} "
         send "hacluster\n"
         
-        expect "Password{{':'}} "
+        expect "\nPassword{{':'}} "
         send "{{ hacluster_pw }}\n"
         
         exit 0
       args:
         executable: /usr/bin/expect
-      delegate_to: localhost
-
+        
     - name: setup cluster
       shell: pcs cluster setup --name {{ hacluster_name}} {{ groups.all | join(" ") }}
 
