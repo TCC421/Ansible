@@ -82,7 +82,7 @@
         name: expect
 
     - name: create cluster
-      shell:
+      shell: |
         pcs cluster auth {{ groups.all | join(" ") }}
         expect "Username:"
         send "hacluster\n"
