@@ -95,8 +95,6 @@
         spawn bash /tmp/hacluster
         expect "Username:"
         send "hacluster\n"
-
-        expect "Password:"
         send "{{ hacluster_pw }}\n"
         exit 0
       args:
