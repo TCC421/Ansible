@@ -99,7 +99,8 @@
         
         expect "\nPassword{{':'}} "
         send "{{ hacluster_pw }}\n"
-        
+        interact
+        sleep 5
         exit 0
       args:
         executable: /usr/bin/expect
