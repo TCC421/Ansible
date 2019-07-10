@@ -1,5 +1,5 @@
 node01: 192.168.1.25
 node02: 192.168.1.26
-hacluster_pw: $1$NA8H2aT2$S9XdApy7dzGD2DhVLw0lz/
+hacluster_pw: somepassword
 hacluster_name: testcluster
 floating_ip: 192.168.1.24
