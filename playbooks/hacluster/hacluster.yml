@@ -70,7 +70,7 @@
       user:
         name: hacluster
         update_password: always
-        password: "{{ somepassword | password_hash('sha512') }}"
+        password: "{{ hacluster_pw | password_hash('sha512') }}"
 
 - name: install only on master
   hosts: master
