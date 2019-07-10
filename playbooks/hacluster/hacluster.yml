@@ -69,6 +69,7 @@
     - name: create password for hacluster
       user:
         name: hacluster
+        update_password: always
         password: "{{ hacluster_pw }}"
 
 - name: install only on master
