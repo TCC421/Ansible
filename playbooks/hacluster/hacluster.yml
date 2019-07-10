@@ -90,7 +90,8 @@
         mode=0744
     
     - name: create cluster
-      shell:
+      shell: |
+        set timeout 300
         spawn pcs cluster auth {{ groups.all | join(" ") }}
         
         expect "Username{{':'}} "
@@ -98,6 +99,7 @@
         
         expect "Password{{':'}} "
         send "{{ hacluster_pw }}\n"
+        
         exit 0
       args:
         executable: /usr/bin/expect
