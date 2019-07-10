@@ -34,24 +34,6 @@
         immediate: yes
         permanent: yes
         state: enabled
-    
-    - name: create corosync.conf
-      copy:
-        src: /etc/corosync/corosync.conf.example
-        dest: /etc/corosync/corosync.conf
-        remote_src: yes
-      
-    - name: start and enable pacemaker
-      service:
-        name: pacemaker
-        enabled: yes
-        state: started
-
-    - name: start and enable corosync
-      service:
-        name: corosync
-        enabled: yes
-        state: started
 
     - name: start and enable pcs
       service:
@@ -80,14 +62,6 @@
       yum:
         state: present
         name: expect
-        
-    - name: cluster script
-      template:
-        src=hacluster.j2
-        dest=/tmp/hacluster
-        owner=root
-        group=root
-        mode=0744
     
     - name: create cluster
       shell: |
@@ -108,6 +82,9 @@
     - name: setup cluster
       shell: pcs cluster setup --name {{ hacluster_name}} {{ groups.all | join(" ") }}
 
+    - name: enable cluster
+      command: pcs cluster enable -–all
+      
     - name: start cluster
       command: pcs cluster start -–all
 
