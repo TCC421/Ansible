@@ -81,7 +81,7 @@
         state: present
         name: expect
         
-    - name: Create kibana admin user
+    - name: cluster script
       template:
         src=hacluster.j2
         dest=/tmp/hacluster
@@ -93,10 +93,10 @@
       shell:
         spawn bash /tmp/hacluster
         
-        expect "Username:[[:space:]]"
+        expect "Username:"
         send "hacluster\n"
         
-        expect "Password:[[:space:]]"
+        expect "Password:"
         send "{{ hacluster_pw }}\n"
         exit 0
       args:
