@@ -80,10 +80,19 @@
       yum:
         state: present
         name: expect
-
+        
+    - name: Create kibana admin user
+      template:
+        src=hacluster.j2
+        dest=/tmp/hacluster
+        owner=root
+        group=root
+        mode=0744
+    
     - name: create cluster
-      shell: |
-        pcs cluster auth {{ groups.all | join(" ") }}\n
+      shell:
+        set timeout 30
+        spawn bash /tmp/hacluster
         expect "Username:"
         send "hacluster\n"
 
