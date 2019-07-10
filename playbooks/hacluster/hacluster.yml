@@ -88,7 +88,7 @@
         send "hacluster\n"
 
         expect "Password:"
-        send "{{ hacluster_pw }}\n"
+        send "{{ hacluster_pw | password_hash('sha512') }}\n"
       args:
         executable: /usr/bin/expect
 
