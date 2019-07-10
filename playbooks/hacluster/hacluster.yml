@@ -91,7 +91,7 @@
     
     - name: create cluster
       shell:
-        spawn cluster auth {{ groups.all | join(" ") }}
+        spawn pcs cluster auth {{ groups.all | join(" ") }}
         
         expect "Username{{':'}} "
         send "hacluster\n"
