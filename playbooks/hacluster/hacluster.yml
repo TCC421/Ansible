@@ -58,26 +58,29 @@
   hosts: master
   tasks:
 
-    - name: install expect
-      yum:
-        state: present
-        name: expect
-    
     - name: create cluster
-      shell: |
-        set timeout 300
-        spawn pcs cluster auth {{ groups.all | join(" ") }}
-        
-        expect "Username{{':'}} "
-        send "hacluster\n"
-        
-        expect "\nPassword{{':'}} "
-        send "{{ hacluster_pw }}\n"
-        interact
-        sleep 5
-        exit 0
-      args:
-        executable: /usr/bin/expect
+      shell: pcs cluster auth {{ groups.all | join(" ") }} -u hacluster -p {{ hacluster_pw }}
+      
+    #- name: install expect
+    #  yum:
+    #    state: present
+    #    name: expect
+    #
+    #- name: create cluster
+    #  shell: |
+    #    set timeout 300
+    #    spawn pcs cluster auth {{ groups.all | join(" ") }}
+    #    
+    #    expect "Username{{':'}} "
+    #    send "hacluster\n"
+    #    
+    #    expect "\nPassword{{':'}} "
+    #    send "{{ hacluster_pw }}\n"
+    #    interact
+    #    sleep 5
+    #    exit 0
+    #  args:
+    #    executable: /usr/bin/expect
         
     - name: setup cluster
       shell: pcs cluster setup --name {{ hacluster_name}} {{ groups.all | join(" ") }}
