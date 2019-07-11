@@ -97,10 +97,10 @@
         enabled: yes
     
     - name: enable cluster
-      shell: pcs cluster enable -–all
+      shell: pcs cluster enable --all
       
     - name: start cluster
-      shell: pcs cluster start -–all
+      shell: pcs cluster start --all
 
     - name: disable STONITH
       shell: pcs property set stonith-enabled=false
