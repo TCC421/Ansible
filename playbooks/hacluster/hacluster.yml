@@ -84,7 +84,17 @@
         
     - name: setup cluster
       shell: pcs cluster setup --name {{ hacluster_name}} {{ groups.all | join(" ") }}
-
+    
+    - name: start and enable pacemaker
+      service:
+        name: pacemaker
+        enabled: yes
+        state: started
+        
+    - name: enable corosync
+        name: corosync
+        enabled: yes
+    
     - name: enable cluster
       shell: pcs cluster enable -–all
       
