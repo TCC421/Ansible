@@ -92,6 +92,7 @@
         state: started
         
     - name: enable corosync
+      service:
         name: corosync
         enabled: yes
     
