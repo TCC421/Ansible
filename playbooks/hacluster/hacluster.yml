@@ -54,13 +54,15 @@
         update_password: always
         password: "{{ hacluster_pw | password_hash('sha512') }}"
 
-- name: install only on master
+- name: configuration only for master
   hosts: master
   tasks:
 
     - name: create cluster
       shell: pcs cluster auth {{ groups.all | join(" ") }} -u hacluster -p {{ hacluster_pw }}
       
+    # Code is not needed but contains proper shell and expect examples
+    
     #- name: install expect
     #  yum:
     #    state: present
@@ -113,3 +115,17 @@
       
     - name: create nginx hearbeat monitor
       shell: pcs resource create webserver ocf:heartbeat:nginx configfile=/etc/nginx/nginx.conf op monitor timeout="5s" interval="5s"
+      
+- name: configuration only for slaves
+  hosts: slaves
+  tasks:
+  
+    - name: enable pacemaker
+      service:
+        name: pacemaker
+        enabled: yes
+        
+    - name: enable corosync
+      service:
+        name: corosync
+        enabled: yes
