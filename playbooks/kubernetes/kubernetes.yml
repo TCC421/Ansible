@@ -133,7 +133,17 @@
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
-
+    
+    - name: Create a centos user
+      user:
+        name: centos
+        password: "{{ centos_pw | password_hash('sha512') }}"
+        state: present
+        shell: /bin/bash 
+        system: no
+        createhome: yes
+        home: /home/centos
+    
     - name: create .kube directory
       become: yes
       become_user: centos
