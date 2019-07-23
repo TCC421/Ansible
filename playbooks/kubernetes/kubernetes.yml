@@ -187,6 +187,7 @@
 
 - hosts: workers
   become: yes
+  gather_facts: true
   tasks:
     - name: join cluster
       shell: "{{ hostvars['master'].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
