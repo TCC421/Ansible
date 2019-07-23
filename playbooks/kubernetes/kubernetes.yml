@@ -1,6 +1,4 @@
 - hosts: all
-  vars:
-    version: 1.15.0
   become: yes
   tasks:
    - name: install Docker
