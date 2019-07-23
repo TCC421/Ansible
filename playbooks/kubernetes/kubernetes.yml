@@ -57,12 +57,37 @@
        enabled: yes
        state: started
        
-   - name: firewalld master
+- hosts: workers
+  become: yes
+  tasks:
+   - name: firewalld master 10250/tcp
      firewalld:
-      ports: 
-   - name: firewalld master
-   - name:
-
+      ports: 10250/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+      
+   - name: firewalld master 10255/tcp
+     firewalld:
+      ports: 10255/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+   
+   - name: firewalld master 30000-32767/tcp
+     firewalld:
+      ports: 30000-32767/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+   
+   - name: firewalld master 6783/tcp
+     firewalld:
+      ports: 6783/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+   
 - hosts: master
   become: yes
   tasks:
@@ -71,6 +96,34 @@
         name: kubectl-{{ version }}
         state: present
         allow_downgrade: yes
+        
+   - name: firewalld master 6443/tcp
+     firewalld:
+      ports: 6443/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+      
+   - name: firewalld master 2379-2380/tcp
+     firewalld:
+      ports: 2379-2380/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+
+   - name: firewalld master 10250-10252/tcp
+     firewalld:
+      ports: 10250-10252/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
+   
+   - name: firewalld master 10255/tcp
+     firewalld:
+      ports: 10255/tcp
+      permanent: yes
+      state: enabled
+      immediate: yes
         
 - hosts: master
   become: yes
