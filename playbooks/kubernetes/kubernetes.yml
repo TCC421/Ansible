@@ -11,6 +11,7 @@
      service:
        name: docker
        state: started
+       enabled: yes
 
    - name: disable SELinux
      command: setenforce 0
@@ -55,6 +56,12 @@
        name: kubelet
        enabled: yes
        state: started
+       
+   - name: firewalld master
+     firewalld:
+      ports: 
+   - name: firewalld master
+   - name:
 
 - hosts: master
   become: yes
