@@ -124,7 +124,13 @@
       permanent: yes
       state: enabled
       immediate: yes
-        
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: disable swap
+      shell: swapoff -a
+
 - hosts: master
   become: yes
   tasks:
