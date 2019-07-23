@@ -1,0 +1,7 @@
+# Playbook to install a kubernetes cluster in CentOS7
+
+- hosts: all
+  roles:
+    - dependencies
+    - master
+    - workers
