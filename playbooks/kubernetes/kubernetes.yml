@@ -62,28 +62,28 @@
   tasks:
    - name: firewalld master 10250/tcp
      firewalld:
-      ports: 10250/tcp
+      port: 10250/tcp
       permanent: yes
       state: enabled
       immediate: yes
       
    - name: firewalld master 10255/tcp
      firewalld:
-      ports: 10255/tcp
+      port: 10255/tcp
       permanent: yes
       state: enabled
       immediate: yes
    
    - name: firewalld master 30000-32767/tcp
      firewalld:
-      ports: 30000-32767/tcp
+      port: 30000-32767/tcp
       permanent: yes
       state: enabled
       immediate: yes
    
    - name: firewalld master 6783/tcp
      firewalld:
-      ports: 6783/tcp
+      port: 6783/tcp
       permanent: yes
       state: enabled
       immediate: yes
@@ -99,28 +99,28 @@
         
    - name: firewalld master 6443/tcp
      firewalld:
-      ports: 6443/tcp
+      port: 6443/tcp
       permanent: yes
       state: enabled
       immediate: yes
       
    - name: firewalld master 2379-2380/tcp
      firewalld:
-      ports: 2379-2380/tcp
+      port: 2379-2380/tcp
       permanent: yes
       state: enabled
       immediate: yes
 
    - name: firewalld master 10250-10252/tcp
      firewalld:
-      ports: 10250-10252/tcp
+      port: 10250-10252/tcp
       permanent: yes
       state: enabled
       immediate: yes
    
    - name: firewalld master 10255/tcp
      firewalld:
-      ports: 10255/tcp
+      port: 10255/tcp
       permanent: yes
       state: enabled
       immediate: yes
