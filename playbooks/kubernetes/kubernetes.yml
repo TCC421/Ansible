@@ -187,7 +187,6 @@
 
 - hosts: workers
   become: yes
-  gather_facts: no
   tasks:
     #- name: join cluster
     #  set_fact:
