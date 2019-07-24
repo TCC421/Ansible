@@ -192,6 +192,8 @@
     - name: join cluster
       set_fact:
         master_server: "{{ hostvars[inventory_hostname]['groups']['master'][0] }}"
+      
+    - name: join cluster
       shell: "{{ {{ master_server }}.join_command }} --ignore-preflight-errors all  >> node_joined.txt"
       args:
         chdir: $HOME
