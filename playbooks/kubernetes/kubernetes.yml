@@ -189,12 +189,12 @@
   become: yes
   gather_facts: no
   tasks:
-    - name: join cluster
-      set_fact:
-        master_server: "{{ hostvars[inventory_hostname]['groups']['master'][0] }}"
+    #- name: join cluster
+    #  set_fact:
+    #    master_server: "{{ hostvars[inventory_hostname]['groups']['master'][0].join_command }}"
       
     - name: join cluster
-      shell: "{{ master_server }}.join_command --ignore-preflight-errors all  >> node_joined.txt"
+      shell: "{{ hostvars[inventory_hostname]['groups']['master'][0].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
       args:
         chdir: $HOME
         creates: node_joined.txt
