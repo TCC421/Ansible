@@ -192,7 +192,7 @@
     #    master_server: "{{ hostvars[inventory_hostname]['groups']['master'][0].join_command }}"
       
     - name: join cluster
-      shell: "{{ join.command }} --ignore-preflight-errors all  >> node_joined.txt"
+      shell: "{{ join_command }} --ignore-preflight-errors all  >> node_joined.txt"
       when: inventory_hostname in groups['workers']
       args:
         chdir: $HOME
