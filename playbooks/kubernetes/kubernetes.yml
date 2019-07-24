@@ -173,27 +173,27 @@
         chdir: $HOME
         creates: pod_network_setup.txt
         
-- hosts: master
+- hosts: all
   become: yes
   gather_facts: no
   tasks:
     - name: get join command
       shell: kubeadm token create --print-join-command
+      when: inventory_hostname in (groups['masters'] | last)
       register: join_command_raw
 
     - name: set join command
       set_fact:
-        join_command: "{{ join_command_raw.stdout_lines[0] }}"
+        join_command: "{{ hostvars[groups['masters'] | last].join_command_raw.stdout_lines[0] }}"
+      when: inventory_hostname in groups['workers']
 
-- hosts: workers
-  become: yes
-  tasks:
     #- name: join cluster
     #  set_fact:
     #    master_server: "{{ hostvars[inventory_hostname]['groups']['master'][0].join_command }}"
       
     - name: join cluster
-      shell: "{{ hostvars[inventory_hostname]['groups']['master'][0].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
+      shell: "{{ join.command }} --ignore-preflight-errors all  >> node_joined.txt"
+      when: inventory_hostname in groups['workers']
       args:
         chdir: $HOME
         creates: node_joined.txt
