@@ -22,8 +22,6 @@
         state: present
         name:
           - docker-ce
-          - docker-ce-cli
-          - containerd.io
 
   # Start docker service
     - name: Start docker service
