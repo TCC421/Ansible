@@ -1,1 +1,19 @@
-
+# Install docker compose
+- name: install docker compose
+  hosts: all
+  tasks:
+      
+      - name: install pre-reqs
+        yum:
+          state: present
+          name:
+            - epel-release
+            
+      - name: install python-pip
+        yum:
+          state: present
+          name:
+            - python-pip
+            
+      - name: install docker compose
+        command: pip install docker-compose
