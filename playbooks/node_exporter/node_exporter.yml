@@ -4,8 +4,25 @@
   
     - name: create node_exporter user
       command: useradd -rs /bin/false node_exporter
-      
-    - name:
+    
+    - name: create virtual host
+      blockinfile:
+        path: /etc/systemd/system/node_exporter.service
+        create: yes
+        marker: ""
+        block: |
+          [Unit]
+          Description=Node Exporter
+          After=network.target
+          
+          [Service]
+          User=node_exporter
+          Group=node_exporter
+          Type=simple
+          ExecStart=/usr/local/bin/node_exporter
+
+          [Install]
+          WantedBy=multi-user.target
     
     - name: daemon reload
       command: systemctl daemon-reload
