@@ -5,7 +5,7 @@
     - name: create node_exporter user
       command: useradd -rs /bin/false node_exporter
     
-    - name: create virtual host
+    - name: create node_exporter service
       blockinfile:
         path: /etc/systemd/system/node_exporter.service
         create: yes
