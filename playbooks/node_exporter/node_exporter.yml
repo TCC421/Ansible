@@ -24,6 +24,11 @@
           [Install]
           WantedBy=multi-user.target
     
+    - firewalld:
+        port: 9100/tcp
+        permanent: yes
+        enabled: yes
+    
     - name: daemon reload
       command: systemctl daemon-reload
       
