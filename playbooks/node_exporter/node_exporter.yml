@@ -1,1 +1,17 @@
-
+- name: install node exporter for prometheus
+  hosts: all
+  tasks:
+  
+    - name: create node_exporter user
+      command: useradd -rs /bin/false node_exporter
+      
+    - name:
+    
+    - name: daemon reload
+      command: systemctl daemon-reload
+      
+    - name: start and enable node_exporter
+      service:
+        name: node_exporter
+        state: started
+        enabled: yes
