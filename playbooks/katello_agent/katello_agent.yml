@@ -40,8 +40,6 @@
         state: present
         name:
           - katello-agent
-          - katello-host-tools
-          - katello-host-tools-tracer
           
     - name: start and enable katello
       service:
