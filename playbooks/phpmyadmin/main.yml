@@ -1,1 +1,11 @@
-Test
+- name: install phpmyadmin
+  hosts: all
+  tasks:
+  
+    - name: install software packages
+      yum:
+        state: present
+        name:
+          - epel-release
+          - httpd
+          - phpmyadmin
