@@ -1,0 +1,5 @@
+ipa-client-install --hostname=`hostname -f` \
+ --mkhomedir \
+ --server=ipa.ezanga.local \
+ --domain ezanga.local \
+ --realm EZANGA.LOCAL
