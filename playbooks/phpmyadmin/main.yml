@@ -1,5 +1,7 @@
 - name: install phpmyadmin
   hosts: all
+  vars:
+    ip_range: 192.168.0.1/24
   tasks:
   
     - name: add repository for php 7.3
@@ -28,7 +30,17 @@
           - httpd
           - libsemanage-python  
         
-    - name: conf file
+    - name: edit conf file for phpmyadmin
+      lineinfile:
+        path: /etc/httpd/conf.d/phpMyAdmin.conf
+        insertafter: 'Require ip 127.0.0.1'
+        line: 'Require ip {{ ip_range }}'
+    
+    - name: edit conf file for phpmyadmin/setup
+      lineinfile:
+        path: /etc/httpd/conf.d/phpMyAdmin.conf
+        insertafter: 'Allow from 127.0.0.1'
+        line: 'Allow from {{ ip_range }}'
     
     - name: Enable and start Apache
       systemd:
