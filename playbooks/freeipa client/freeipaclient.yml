@@ -14,8 +14,8 @@
     - name: join
       command: >
         ipa-client-install
-        --hostname=`hostname -f`
+        --hostname='hostname -f'
         --mkhomedir
-        --server={{ipa_server}}
-        --domain={{ipa_domain}}
-        --realm={ipa_realm}}
+        --server={{ ipa_server }}
+        --domain={{ ipa_domain }}
+        --realm={ ipa_realm }}
