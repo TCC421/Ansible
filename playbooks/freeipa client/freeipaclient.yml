@@ -1,5 +1,21 @@
-ipa-client-install --hostname=`hostname -f` \
- --mkhomedir \
- --server=ipa.ezanga.local \
- --domain ezanga.local \
- --realm EZANGA.LOCAL
+- name: install freeipa client
+  hosts: all
+  vars:
+    ipa_server: ipa.ezanga.local
+    ipa_domain: ezanga.local
+    ipa_realm: EZANGA.LOCAL
+  tasks:
+    
+    - name: install ipa client
+      yum: 
+        state: present
+        name: freeipaclient
+    
+    - name: join
+      command: >
+        ipa-client-install
+        --hostname=`hostname -f`
+        --mkhomedir
+        --server={{ipa_server}}
+        --domain={{ipa_domain}}
+        --realm={ipa_realm}}
