@@ -1,1 +1,35 @@
-a
+- name: install lxc (containers)
+  hosts: all
+  tasks:
+    
+    - name: install epel
+      yum:
+        state: present
+        name: epel-release
+        
+    - name: install required packages
+      yum:
+        state: present
+        name:
+          - debootstrap
+          - perl
+          - libvirt
+          
+    - name: install lxc
+      yum:
+        state: present
+        name:
+          - lxc
+          - lxc-templates
+          
+    - name: start and enable lxc
+      service:
+        name: lxc
+        state: started
+        enabled: yes
+        
+    - name: start and enable libvirt
+      service:
+        name: libvirtd
+        state: started
+        enabled: yes
