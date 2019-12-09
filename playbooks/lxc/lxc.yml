@@ -21,6 +21,7 @@
         name:
           - lxc
           - lxc-templates
+          - lxc-extra
           
     - name: start and enable lxc
       service:
