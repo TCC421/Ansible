@@ -1,0 +1,72 @@
+git init						        //Initialize Local Git Repository
+git add <file> 						        //Add File(s) to Index
+git status						        //Check Status of Working Tree
+git commit						        //Commit Changes in Index
+git push						        //Push to Remote Repository
+git pull						        //Pull latest from Remote Repository
+git clone						        //Clone Repository into a New Directory
+git clone https://github.com/TCC421/Test2.git .			//Clones without the preceeding folder name
+git clone git://github.com/TCC421/Test2.git .		        //Clones without the preceeding folder name
+git rm --cached <file>					        //Removes File from commit
+git commit -m "comments"					//Skips insert comments screen
+git add .							//Adds every file
+touch .gitignore (vi add <file>)				//Contains a list of files that are not going to be committed
+git branch <name>					        //Only creates the branch
+git checkout <branch name>					//Switches to the new branch
+git merge <branch name>						//Merge branch to master
+git remote							//Lists remote repositories
+git remote remove <repo>					//Removes repository
+git remote add <name> https://github.com/TCC421/Test2.git	//Add github remote repo
+git push -u <remote name> master			        //Pushes to remote repo
+git remote show <remote name>					//Information on remote repo
+git branch -D <branch>						//Deletes local branch
+git config --global user.name "Your Name"           
+git config --global user.email "you@example.com"
+git show-branch							//Shows branch structure
+
+Install Notes
+yum groupinstall "Development Tools"
+yum install gettext-devel openssl-devel perl-CPAN perl-devel zlib-devel curl-devel
+
+wget https://github.com/git/git/archive/v2.1.2.tar.gz -O git.tar.gz
+
+tar -zxf git.tar.gz
+cd git-*
+make configure
+./configure --prefix=/usr/local
+make installgit init							                              //Initialize Local Git Repository
+git add <file> 							                        //Add File(s) to Index
+git status							                            //Check Status of Working Tree
+git commit							                            //Commit Changes in Index
+git push							                              //Push to Remote Repository
+git pull							                              //Pull latest from Remote Repository
+git clone						                              	//Clone Repository into a New Directory
+git clone https://github.com/TCC421/Test2.git .			//Clones without the preceeding folder name
+git clone git://github.com/TCC421/Test2.git .			  //Clones without the preceeding folder name
+git rm --cached <file>						                  //Removes File from commit
+git commit -m "comments"				    	              //Skips insert comments screen
+git add .							                              //Adds every file
+touch .gitignore (vi add <file>)				            //Contains a list of files that are not going to be committed
+git branch <name>						                        //Only creates the branch
+git checkout <branch name>					                //Switches to the new branch
+git merge <branch name>						                  //Merge branch to master
+git remote							                            //Lists remote repositories
+git remote remove <repo>					                  //Removes repository
+git remote add <name> https://github.com/TCC421/Test2.git	//Add github remote repo
+git push -u <remote name> master				            //Pushes to remote repo
+git remote show <remote name>					              //Information on remote repo
+git branch -D <branch>						                  //Deletes local branch
+git config --global user.name "Your Name"           
+git config --global user.email "you@example.com"
+
+Install
+yum groupinstall "Development Tools"
+yum install gettext-devel openssl-devel perl-CPAN perl-devel zlib-devel curl-devel
+
+wget https://github.com/git/git/archive/v2.1.2.tar.gz -O git.tar.gz
+
+tar -zxf git.tar.gz
+cd git-*
+make configure
+./configure --prefix=/usr/local
+make install
