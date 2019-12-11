@@ -1,0 +1,20 @@
+LXC uses the virtualization management service to support network bridging for containers, libvirtd uses bridge network virbr0 and lxc-net.service uses bridge of lxcbr0.
+
+ls -alh /usr/share/lxc/templates/ 			- list available templates
+lxc-checkconfig			  			- check configuration
+lxc-create -n container_name -t container_template	- create a container
+/var/lib/lxc/centos01/tmp_root_pass			- location of temporary root password
+lxc-ls							- list containers
+lxc-info --name <container>				- info on container
+lxc-start -n <container> -d				- starts a container and runs as a daemon
+lxc-ls --active						- list active containers
+lxc-attach --name <container>				- access the container
+lxc-stop -n <container>					- stop the container
+lxc-destroy -n <container>				- delete the container
+/var/lib/lxc						- container location
+/etc/lxc/default.conf					- default network information (bridge)
+lxc-snapshot -n <container>				- takes a snapshot
+	Note: You must stop a container before taking a snapshot.
+	snapshots are stored in /var/lib/lxcsnaps/
+lxc-snapshot -r snap0 -n <container>			- restore snapshot
+/var/lib/lxc/<container>/tmp_root_pass			- location of temporary root password

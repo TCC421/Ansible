@@ -1,0 +1,43 @@
+FILEBEAT
+Lightweight shipper for logs
+Forget using SSH when you have tens, hundreds, or even thousands of servers, virtual machines, and containers generating logs. Filebeat helps you keep the simple things simple by offering a lightweight way to forward and centralize logs and files.
+
+METRICBEAT
+Lightweight shipper for metrics
+Collect metrics from your systems and services. From CPU to memory, Redis to NGINX, and much more, Metricbeat is a lightweight way to send system and service statistics.
+
+PACKETBEAT
+Lightweight shipper for network data
+Monitoring your network traffic is critical to gaining observability over your environment — ensuring high levels of performance and security. Packetbeat is a lightweight network packet analyzer that sends data from your hosts and containers to Logstash or Elasticsearch. 
+
+WINLOGBEAT
+Lightweight shipper for Windows event logs
+Keep a pulse on what's happening across your Windows-based infrastructure. Stream Windows event logs to Elasticsearch and Logstash with Winlogbeat.
+
+AUDITBEAT
+Lightweight shipper for audit data
+Collect your Linux audit framework data and monitor the integrity of your files. Auditbeat ships these events in real time to the rest of the Elastic Stack for further analysis.
+
+HEARTBEAT
+Lightweight shipper for uptime monitoring
+Monitor services for their availability with active probing. Given a list of URLs, Heartbeat asks the simple question: Are you alive? Heartbeat ships this information and response time to the rest of the Elastic Stack for further analysis.
+
+FUNCTIONBEAT
+Serverless shipper for cloud data
+Deploy as a function in your cloud provider’s Function-as-a-Service (FaaS) platform to collect, ship, and monitor data from your cloud services.
+
+
+Problems with access to Elasticsearch from outside the hosting machine: 
+set /etc/elasticsearch/elasticsearch.yml discovery.seed_hosts: []
+
+
+Load dashboards in Kibana
+metricbeat setup --dashboards
+
+Elasticsearch /tmp error during elasticsearch startup
+mount -o remount,exec /tmp
+
+Filebeat.yml logs (CentOS 7)
+- /var/log/*.log
+- /var/log/message
+- /var/log/secure
