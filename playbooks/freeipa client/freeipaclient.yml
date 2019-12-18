@@ -9,7 +9,7 @@
     - name: install ipa client
       yum: 
         state: present
-        name: freeipaclient
+        name: freeipa-client
     
     - name: join
       command: >
