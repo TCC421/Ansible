@@ -1,4 +1,4 @@
-- name: Install filebeat
+- name: Install filebeat (ELK 7)
   hosts: all
   vars:
     filebeat_module: nginx
@@ -9,7 +9,7 @@
       yum_repository:
         name: elastic-beats
         description: elastic-beats repo
-        baseurl: https://artifacts.elastic.co/packages/oss-6.x/yum
+        baseurl: https://artifacts.elastic.co/packages/oss-7.x/yum
         gpgcheck: 1
         enabled: yes
         gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
