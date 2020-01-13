@@ -17,8 +17,8 @@
           name: elasticsearch
           description: elasticsearch repo
           baseurl: https://artifacts.elastic.co/packages/7.x/yum
-          gpgcheck: 1
-          enabled: 1
+          gpgcheck: yes
+          enabled: yes
           gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
           
       - name: install elasticsearch
