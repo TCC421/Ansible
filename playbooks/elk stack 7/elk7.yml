@@ -1,1 +1,72 @@
+- name: install elk stack 7
+  hosts: all
+  vars:
+    elk_ip: 192.168.1.26
+    
+    tasks:
 
+      - name: install java
+        yum:
+          state: presesent
+          name:
+            - java-openjdk-devl
+            - java-openjdk
+            
+      - name: add elasticsearch repo
+        yum_repository:
+          name: elasticsearch
+          description: elasticsearch repo
+          baseurl: https://artifacts.elastic.co/packages/7.x/yum
+          gpgcheck: 1
+          enabled: 1
+          gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+          
+      - name: install elasticsearch
+        yum:
+          state: present
+          name: elasticsearch
+      
+      - name: modify /etc/elasticsearch/elasticsearch.yml
+        lineinfile:
+          path: /etc/elasticsearch/elasticsearch.yml
+          regexp: 'network.host:'
+          line: 'network.host: {{ elk_ip }}'
+          
+      - name: modify /etc/sysconfig/elasticsearch
+         lineinfile:
+          path: /etc/sysconfig/elasticsearch
+          regexp: 'network.host:'
+          line: 'network.host: {{ elk_ip }}'
+      
+      - name: start and enable elasticsearch
+        service:
+          name: elasticsearch
+          enabled: yes
+          state: started
+      
+      - name: install kibana
+        yum:
+          state: present
+          name: kibana
+      
+      - name: modify /etc/kibana/kibana.yml
+      
+      - name: open firewall port 5061
+        firewalld:
+          port: 5061/tcp
+          permanent: yes
+          state: enabled
+          immediate: yes
+      
+      - name: open firewall port 9200
+        firewalld:
+          port: 9200/tcp
+          permanent: yes
+          state: enabled
+          immediate: yes
+      
+      - name: start and enable kibana
+        service:
+          name: kibana
+          enabled: yes
+          state: started
