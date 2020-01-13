@@ -35,8 +35,8 @@
       - name: modify /etc/sysconfig/elasticsearch
          lineinfile:
           path: /etc/sysconfig/elasticsearch
-          regexp: 'network.host:'
-          line: 'network.host: {{ elk_ip }}'
+          regexp: '#ES_JAVA_OPTS='
+          line: 'ES_JAVA_OPTS="-Djna.tmpdir=/var/lib/elasticsearch/tmp"'
       
       - name: start and enable elasticsearch
         service:
