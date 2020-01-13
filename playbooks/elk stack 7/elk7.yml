@@ -86,9 +86,9 @@
           line: 'elasticsearch.hosts: http://{{ elk_ip }}:9200'
           state: present
       
-      - name: open firewall port 5061
+      - name: open firewall port 5601
         firewalld:
-          port: 5061/tcp
+          port: 5601/tcp
           permanent: yes
           state: enabled
           immediate: yes
