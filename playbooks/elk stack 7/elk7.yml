@@ -48,7 +48,7 @@
         lineinfile:
           path: /etc/elasticsearch/elasticsearch.yml
           insertafter: '#action.destructive_requires_name: true'
-          line: bootstrap.system_call_filter: false
+          line: 'bootstrap.system_call_filter: false'
         
       - name: modify /etc/sysconfig/elasticsearch
          lineinfile:
