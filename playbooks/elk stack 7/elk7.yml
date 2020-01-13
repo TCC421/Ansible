@@ -32,11 +32,14 @@
           regexp: 'network.host:'
           line: 'network.host: {{ elk_ip }}'
           
+      - name: modify /etc/elasticsearch/elasticsearch.yml
+        
+          
       - name: modify /etc/sysconfig/elasticsearch
          lineinfile:
           path: /etc/sysconfig/elasticsearch
           regexp: '#ES_JAVA_OPTS='
-          line: 'ES_JAVA_OPTS="-Djna.tmpdir=/var/lib/elasticsearch/tmp"'
+          line: 'ES_JAVA_OPTS=["-Djna.tmpdir=/var/lib/elasticsearch/tmp"]'
       
       - name: start and enable elasticsearch
         service:
@@ -50,6 +53,16 @@
           name: kibana
       
       - name: modify /etc/kibana/kibana.yml
+        lineinfile:
+          path: /etc/kibana/kibana.yml
+          regexp: 'server.host:'
+          line: 'server.host: {{ elk_ip }}'
+      
+      - name: modify /etc/kibana/kibana.yml
+        lineinfile:
+          path: /etc/kibana/kibana.yml
+          regexp: '#elasticsearch.hosts:'
+          line: 'elasticsearch.hosts: http://{{ elk_ip }}:9200'
       
       - name: open firewall port 5061
         firewalld:
