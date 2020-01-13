@@ -51,7 +51,7 @@
           line: 'bootstrap.system_call_filter: false'
         
       - name: modify /etc/sysconfig/elasticsearch
-         lineinfile:
+        lineinfile:
           path: /etc/sysconfig/elasticsearch
           regexp: '#ES_JAVA_OPTS='
           line: 'ES_JAVA_OPTS=["-Djna.tmpdir=/var/lib/elasticsearch/tmp"]'
