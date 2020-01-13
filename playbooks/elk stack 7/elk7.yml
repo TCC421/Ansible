@@ -29,12 +29,27 @@
       - name: modify /etc/elasticsearch/elasticsearch.yml
         lineinfile:
           path: /etc/elasticsearch/elasticsearch.yml
-          regexp: 'network.host:'
+          regexp: '#network.host: 192.168.0.1'
           line: 'network.host: {{ elk_ip }}'
           
       - name: modify /etc/elasticsearch/elasticsearch.yml
-        
+        lineinfile:
+          path: /etc/elasticsearch/elasticsearch.yml
+          regexp: '#discovery.seed_hosts: ["host1", "host2"]'
+          line: 'discovery.seed_hosts: []'
           
+      - name: modify /etc/elasticsearch/elasticsearch.yml
+        lineinfile:
+          path: /etc/elasticsearch/elasticsearch.yml
+          regexp: '#cluster.initial_master_nodes: ["node-1", "node-2"]'
+          insertafter: '#action.destructive_requires_name: true'
+          line: 'cluster.initial_master_nodes: [{{elk_ip}}]'
+        
+      - name: modify /etc/elasticsearch/elasticsearch.yml
+        lineinfile:
+          path: /etc/elasticsearch/elasticsearch.yml
+          line: bootstrap.system_call_filter: false
+        
       - name: modify /etc/sysconfig/elasticsearch
          lineinfile:
           path: /etc/sysconfig/elasticsearch
