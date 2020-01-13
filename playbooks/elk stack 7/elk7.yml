@@ -46,6 +46,7 @@
       - name: modify /etc/elasticsearch/elasticsearch.yml
         lineinfile:
           path: /etc/elasticsearch/elasticsearch.yml
+          regexp: '#action.destructive_requires_name: true'
           insertafter: '#action.destructive_requires_name: true'
           line: 'bootstrap.system_call_filter: false'
         
