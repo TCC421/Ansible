@@ -7,7 +7,7 @@
 
       - name: install java
         yum:
-          state: presesent
+          state: present
           name:
             - java-openjdk-devl
             - java-openjdk
