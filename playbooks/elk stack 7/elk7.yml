@@ -9,7 +9,6 @@
         yum:
           state: present
           name:
-            - java-openjdk-devel
             - java-openjdk
             
       - name: add elasticsearch repo
