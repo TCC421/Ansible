@@ -1,0 +1,6 @@
+- name: run random command on multiple machines
+  hosts: all
+  tasks:
+  
+    - name: run command
+      command: 
