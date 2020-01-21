@@ -1,0 +1,30 @@
+- name: install fail2ban
+  hosts: all
+  vars:
+    enable_jail: sed -i "/^\[sshd\]/a\\enabled=true" /etc/fail2ban/jail.local
+  tasks:
+    
+    - name: add EPEL repo
+      yum:
+        state: present
+        name: epel-release
+        
+    - name: install fail2ban
+      yum:
+        state: present
+        name:
+          - fail2ban
+          - fail2ban-firewalld
+          - fail2ban-systemd
+          
+    - name: copy jail.conf to jail.local
+      command: cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+      
+    - name: enable jail
+      command: {{ enable_jail }}
+      
+    - name: start and enable fail2ban
+      service:
+        name: fail2ban
+        enabled: yes
+        state: started
