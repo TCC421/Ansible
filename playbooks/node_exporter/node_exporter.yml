@@ -1,21 +1,29 @@
 - name: install node exporter for prometheus
   hosts: all
+  vars:
+    node_exporter_url: https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
   tasks:
   
-    - name: 
-      command: cd /tmp
-      
-    - name:
-      command: curl -LO https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
-
-    - name: 
-      command: tar -xvf node_exporter-0.18.1.linux-amd64.tar.gz
+    - name: download, unarchive and move node_exporter to /usr/local/bin
+      unarchive:
+        src: {{ node_exporter_url }}
+        dest: /usr/local/bin
+        remote_src: yes
     
-    - name: 
-      command: mv node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
+    #- name: change to temp directory
+    #  command: cd /tmp
+      
+    #- name: download node exporter tar file
+    #  command: curl -LO {{ node_exporter_url }}
 
-    - name: create node_exporter user
-      command: useradd -rs /bin/false node_exporter
+    #- name: unzip tar file
+    #  command: tar -xvf {{ node_exporter_ver }}.tar.gz
+    
+    #- name: move command to /usr/local/bin
+    #  command: mv {{ node_exporter_ver }}/node_exporter /usr/local/bin/
+
+    #- name: create node_exporter user
+    #  command: useradd -rs /bin/false node_exporter
     
     - name: create node_exporter service
       blockinfile:
