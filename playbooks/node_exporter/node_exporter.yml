@@ -22,8 +22,8 @@
     #- name: move command to /usr/local/bin
     #  command: mv {{ node_exporter_ver }}/node_exporter /usr/local/bin/
 
-    #- name: create node_exporter user
-    #  command: useradd -rs /bin/false node_exporter
+    - name: create node_exporter user
+      command: useradd -rs /bin/false node_exporter
     
     - name: create node_exporter service
       blockinfile:
