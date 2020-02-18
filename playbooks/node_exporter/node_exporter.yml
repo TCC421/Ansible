@@ -2,6 +2,18 @@
   hosts: all
   tasks:
   
+    - name: 
+      command: cd /tmp
+      
+    - name:
+      command: curl -LO https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
+
+    - name: 
+      command: tar -xvf node_exporter-0.18.1.linux-amd64.tar.gz
+    
+    - name: 
+      command: mv node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin/
+
     - name: create node_exporter user
       command: useradd -rs /bin/false node_exporter
     
