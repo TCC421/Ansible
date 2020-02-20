@@ -1,0 +1,5 @@
+- name: install wget, htop
+  yum:
+    state: present
+    name:
+      - wget
