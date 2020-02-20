@@ -1,0 +1,5 @@
+- name: install extra packages for enterprise linux (epel)
+  yum: 
+    state: present
+    name:
+      - epel-release
