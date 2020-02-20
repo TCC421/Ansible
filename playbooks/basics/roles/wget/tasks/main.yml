@@ -1,4 +1,4 @@
-- name: install wget, htop
+- name: install wget
   yum:
     state: present
     name:
