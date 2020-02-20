@@ -1,6 +1,10 @@
-- name: install wget, htop, cockpit, vim
-  hosts: all
-  tasks:
+- hosts: all
+  roles:
+    - common
+    - vim
+    - wget
+    - htop
+    - cockpit
       
     - name: install extra packages for enterprise linux (epel)
       yum: 
