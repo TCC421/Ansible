@@ -1,4 +1,4 @@
-- name: new vm essential installs
+- name: install wget, htop, cockpit, vim
   hosts: all
   tasks:
       
