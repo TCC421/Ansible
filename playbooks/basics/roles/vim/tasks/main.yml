@@ -1,0 +1,14 @@
+- name: create vim repo      
+  yum_repository:
+    name: vim
+    description: vim repo
+    baseurl: http://mirror.ghettoforge.org/distributions/gf/gf-release-latest.gf.el7.noarch.rpm 
+    gpgcheck: yes
+    enabled: yes
+    gpgkey: http://mirror.ghettoforge.org/distributions/gf/RPM-GPG-KEY-gf.el7
+    
+- name: install vim enhanced
+  yum:
+    state: present
+    name:
+      - vim-enhanced
