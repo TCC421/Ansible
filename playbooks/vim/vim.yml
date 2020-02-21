@@ -1,1 +1,25 @@
-test
+#install latest version of vim
+- name: install dependencies
+  yum:
+    state: present
+    name:
+      - git
+      - gcc
+      - kernel-devel
+      - make
+      - ncurses-devel
+
+- name: clone vim git repo
+  git:
+    repo: https://github.com/vim/vim.git
+    clone: yes
+    dest: /tmp/vim
+
+- name: install latest vim
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/vim"
+  with_items:
+    - "./configure"
+    - "make"
+    - "make install"
