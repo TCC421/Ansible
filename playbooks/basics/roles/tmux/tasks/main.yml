@@ -28,11 +28,15 @@
     dest: /tmp
     remote_src: yes
 
-- name: install latest release of tmux
+- name: install latest release of tmux 1 of 2 
+  shell: LDFLAGS=\"-L/usr/local/lib -Wl,-rpath=/usr/local/lib\" ./configure --prefix=/usr/local
+  args:
+    chdir: "/tmp/{{ tmux_dir }}"
+  
+- name: install latest release of tmux 2 of 2
   command: "{{ item }}"
   args:
     chdir: "/tmp/{{ tmux_dir }}"
   with_items:
-    - "LDFLAGS=\"-L/usr/local/lib -Wl,-rpath=/usr/local/lib\" ./configure --prefix=/usr/local"
     - "make"
     - "make install"
