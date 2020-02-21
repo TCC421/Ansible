@@ -7,13 +7,32 @@
       - make
       - ncurses-devel
 
-- name:
+- name: download and unzip libevent
   unarchive:
-    src: {{ node_exporter_url }}
-    dest: /usr/local/bin
+    src: {{ libevent_url }}
+    dest: /tmp
     remote_src: yes
-    
-- name:
 
+- name: 
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/{{ libevent_dir }}"
+  with_items:
+    - "./configure --prefix=/usr/local"
+    - "make"
+    - "make install"
+
+- name: download and unzip tmux
+  unarchive:
+    src: {{ tmux_url }}
+    dest: /tmp
+    remote_src: yes
 
 - name:
+  command: "{{ item }}"
+  args:
+    chdir: "/src/package/"
+  with_items:
+    - "./configure"
+    - "/usr/bin/make"
+    - "/usr/bin/make install"
