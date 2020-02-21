@@ -9,3 +9,6 @@ tmux_url: https://github.com/tmux/tmux/releases/download/3.0a/tmux-3.0a.tar.gz
 
 #tmux directory
 tmux_dir: tmux-3.0a
+
+#vim rpm repo
+vim_rpm_repo: http://mirror.ghettoforge.org/distributions/gf/gf-release-latest.gf.el7.noarch.rpm
