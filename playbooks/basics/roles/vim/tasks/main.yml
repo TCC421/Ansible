@@ -6,5 +6,6 @@
 - name: install vim enhanced
   yum:
     state: present
+    enablerepo: gf
     name:
       - vim-enhanced
