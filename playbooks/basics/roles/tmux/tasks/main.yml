@@ -44,7 +44,7 @@
 - name: copy tmux customization file
   template:
    src=.tmux.conf.j2
-   dest=~
+   dest=~/.tmux.conf
    owner=root
    group=root
    mode=0744
