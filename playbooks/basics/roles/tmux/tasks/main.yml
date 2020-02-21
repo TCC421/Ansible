@@ -33,6 +33,6 @@
   args:
     chdir: "/tmp/{{ tmux_dir }}"
   with_items:
-    - "LDFLAGS="-L/usr/local/lib -Wl,-rpath=/usr/local/lib" ./configure --prefix=/usr/local"
+    - "./configure --prefix=/usr/local"
     - "make"
     - "install"
