@@ -1,11 +1,24 @@
-- name: create vim repo      
-  yum:
-    name: "{{ vim_rpm_repo }}"
-    state: present
-    
-- name: install vim enhanced
+- name: install dependencies
   yum:
     state: present
-    enablerepo: gf
     name:
-      - vim-enhanced
+      - git
+      - gcc
+      - kernel-devel
+      - make
+      - ncurses-devel
+
+- name: clone vim git repo
+  git:
+    repo: https://github.com/vim/vim.git
+    clone: yes
+    dest: /tmp/vim
+
+- name: install latest vim
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/vim"
+  with_items:
+    - "./configure"
+    - "make"
+    - "make install"
