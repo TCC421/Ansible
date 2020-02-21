@@ -13,7 +13,7 @@
     dest: /tmp
     remote_src: yes
 
-- name: 
+- name: install libevent
   command: "{{ item }}"
   args:
     chdir: "/tmp/{{ libevent_dir }}"
@@ -28,11 +28,11 @@
     dest: /tmp
     remote_src: yes
 
-- name:
+- name: install latest release of tmux
   command: "{{ item }}"
   args:
-    chdir: "/src/package/"
+    chdir: "/tmp/{{ tmux_dir }}"
   with_items:
-    - "./configure"
-    - "/usr/bin/make"
-    - "/usr/bin/make install"
+    - "LDFLAGS="-L/usr/local/lib -Wl,-rpath=/usr/local/lib" ./configure --prefix=/usr/local"
+    - "make"
+    - "install"
