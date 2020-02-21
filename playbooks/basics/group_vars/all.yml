@@ -1,5 +1,11 @@
 #libevent URL
 libevent_url: https://github.com/libevent/libevent/releases/download/release-2.1.11-stable/libevent-2.1.11-stable.tar.gz
 
+#libevent directory
+libevent_dir: libevent-2.1.11-stable
+
 #tmux URL
 tmux_url: https://github.com/tmux/tmux/releases/download/3.0a/tmux-3.0a.tar.gz
+
+tmux directory
+tmux_dir: tmux-3.0a
