@@ -47,4 +47,4 @@
    dest=~/.tmux.conf
    owner=root
    group=root
-   mode=0744
+   mode=0644
