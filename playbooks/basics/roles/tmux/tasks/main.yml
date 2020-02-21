@@ -40,3 +40,11 @@
   with_items:
     - "make"
     - "make install"
+
+- name: copy tmux customization file
+  template:
+   src=.tmux.conf.j2
+   dest=~
+   owner=root
+   group=root
+   mode=0744
