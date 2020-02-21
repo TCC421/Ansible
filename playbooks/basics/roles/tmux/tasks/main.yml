@@ -1,2 +1,19 @@
-- name: install tmux
-  
+- name: install dependencies
+  yum:
+    state: present
+    name:
+      - gcc
+      - kernel-devel
+      - make
+      - ncurses-devel
+
+- name:
+  unarchive:
+    src: {{ node_exporter_url }}
+    dest: /usr/local/bin
+    remote_src: yes
+    
+- name:
+
+
+- name:
