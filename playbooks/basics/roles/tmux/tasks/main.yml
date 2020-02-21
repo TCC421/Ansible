@@ -35,4 +35,4 @@
   with_items:
     - "./configure --prefix=/usr/local"
     - "make"
-    - "install"
+    - "make install"
