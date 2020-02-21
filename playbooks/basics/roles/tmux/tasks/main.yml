@@ -9,7 +9,7 @@
 
 - name: download and unzip libevent
   unarchive:
-    src: {{ libevent_url }}
+    src: "{{ libevent_url }}"
     dest: /tmp
     remote_src: yes
 
@@ -24,7 +24,7 @@
 
 - name: download and unzip tmux
   unarchive:
-    src: {{ tmux_url }}
+    src: "{{ tmux_url }}"
     dest: /tmp
     remote_src: yes
 
