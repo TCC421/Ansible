@@ -3,13 +3,20 @@
 - name: install katello agent
   hosts: all
   vars:
-    org: Default_Organization
-    key: CentOS_7_Non_Prod_Key
+    key: --org="Anura" --activationkey="CentOS7 Base/Epel"
     katello_ip: 192.168.1.8
     katello_hostname: foreman.ezanga.local
-    katello_latest_repo: https://yum.theforeman.org/client/1.23/el7/x86_64/foreman-client-release.rpm
+    katello_latest_repo: https://yum.theforeman.org/client/1.24/el7/x86_64/foreman-client-release.rpm
     
   tasks:
+    
+    - name: create directory for backup repo files
+      file:
+        path: /etc/yum.repos.d/backuprepo
+        state: directory
+    
+    - name: move repos to /etc/yum.repos.d/backuprepo
+      shell: mv /etc/yum.repos.d/* /etc/yum.repos.d/backuprepo
     
     - name: edit hosts file
       lineinfile:
@@ -28,26 +35,21 @@
         name: http://{{ katello_ip }}/pub/katello-ca-consumer-{{katello_hostname}}-1.0-1.noarch.rpm
         
     - name: register the client with katello
-      command: subscription-manager register --org="{{ org }}" --activationkey="{{ key }}"
+      command: subscription-manager register {{ key }}
     
     - name: install katello repo
       yum:
         state: present
         name: "{{ katello_latest_repo }}"
     
-    - name: install katello-agent
+    - name: install katello-host-tools
       yum:
         state: present
         name:
-          - katello-agent
+          - katello-host-tools
           
     - name: start and enable katello
       service:
         name: goferd
         enabled: yes
         state: started
-    
-    - name: create directory
-      file:
-        path: /etc/yum.repos.d/backuprepo
-        state: directory
